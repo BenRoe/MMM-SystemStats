@@ -1,0 +1,26 @@
+{
+  "name": "Magic-Mirror-Module-SystemStats",
+  "version": "1.0.0",
+  "description": "Linux Sytem Information module for the Magic Mirror.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenRoe/MMM-SystemStats"
+  },
+  "keywords": [
+    "magic mirror",
+    "smart mirror",
+    "cpu temperature",
+    "system load",
+    "module"
+  ],
+  "author": "Benjamin Roesner",
+  "contributors": "https://github.com/BenRoe/MMM-SystemStats/graphs/contributors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BenRoe/MMM-SystemStats/issues"
+  },
+  "homepage": "https://github.com/BenRoe/MMM-SystemStats#readme",
+  "dependencies": {
+    "async": "latest"
+    }
+}
