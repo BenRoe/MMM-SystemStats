@@ -6,6 +6,11 @@ This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the p
 Tested with:
 - Raspberry Pi
 
+## Dependencies
+- An installation of [MagicMirror<sup>2</sup>](https://github.com/MichMich/MagicMirror)
+- npm
+- [async](https://www.npmjs.com/package/async)
+
 ## Installation
 
 Navigate into your MagicMirror's `modules` folder:
