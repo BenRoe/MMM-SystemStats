@@ -9,21 +9,26 @@ Tested with:
 ## Installation
 
 Navigate into your MagicMirror's `modules` folder:
-````
+```
 cd ~/MagicMirror/modules
-````
+```
 
 Clone this repository:
-````
+```
 git clone https://github.com/BenRoe/MMM-SystemStats
-````
+```
+
+Navigate to the new `MMM-SystemStats` folder and install the node dependencies.
+```
+npm install
+```
 
 Configure the module in your `config.js` file.
 
 ## Using the module
 
 To use this module, add it to the modules array in the `config/config.js` file:
-````javascript
+```javascript
 modules: [
 	{
 		module: 'MMM-SystemStats',
@@ -36,7 +41,7 @@ modules: [
 		},
 	},
 ]
-````
+```
 
 ## Configuration options
 
