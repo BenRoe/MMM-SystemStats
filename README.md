@@ -1,5 +1,5 @@
 # Module: MMM-SystemStats
-This [https://github.com/MichMich/MagicMirror](MagicMirror) modules, shows the processor temperature, system load and available RAM.
+This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the processor temperature, system load and available RAM.
 
 Tested with:
 - Raspberry Pi
@@ -54,7 +54,7 @@ The following properties can be configured:
 			<td><code>updateInterval</code></td>
 			<td>How often does the content needs to be fetched? (Milliseconds)
 				<br><b>Possible values:</b> <code>1000</code> - <code>86400000</code>
-				<br><b>Default value:</b> <code>5000</code> (5 seconds)
+				<br><b>Default value:</b> <code>10000</code> (10 seconds)
 			</td>
 		</tr>
 
