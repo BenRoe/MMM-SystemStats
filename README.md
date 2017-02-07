@@ -1,20 +1,32 @@
 # Module: MMM-SystemStats
-This [https://github.com/MichMich/MagicMirror](MagicMirror) modules, shows the processor temperature, system load and available RAM.
+This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the processor temperature, system load and available RAM.
+
+![Magic-Mirror Module MMM-SystemStats screenshot](https://raw.githubusercontent.com/BenRoe/MMM-SystemStats/master/screenshot.png)
 
 Tested with:
 - Raspberry Pi
 
+## Dependencies
+- An installation of [MagicMirror<sup>2</sup>](https://github.com/MichMich/MagicMirror)
+- npm
+- [async](https://www.npmjs.com/package/async)
+
 ## Installation
 
 Navigate into your MagicMirror's `modules` folder:
-````
+```
 cd ~/MagicMirror/modules
-````
+```
 
 Clone this repository:
-````
+```
 git clone https://github.com/BenRoe/MMM-SystemStats
-````
+```
+
+Navigate to the new `MMM-SystemStats` folder and install the node dependencies.
+```
+npm install
+```
 
 Configure the module in your `config.js` file.
 
@@ -27,7 +39,7 @@ If you haven't changed the modules, this should work without any problems. Type 
 ## Using the module
 
 To use this module, add it to the modules array in the `config/config.js` file:
-````javascript
+```javascript
 modules: [
 	{
 		module: 'MMM-SystemStats',
@@ -40,7 +52,7 @@ modules: [
 		},
 	},
 ]
-````
+```
 
 ## Configuration options
 
@@ -60,7 +72,7 @@ The following properties can be configured:
 			<td><code>updateInterval</code></td>
 			<td>How often does the content needs to be fetched? (Milliseconds)
 				<br><b>Possible values:</b> <code>1000</code> - <code>86400000</code>
-				<br><b>Default value:</b> <code>5000</code> (5 seconds)
+				<br><b>Default value:</b> <code>10000</code> (10 seconds)
 			</td>
 		</tr>
 
@@ -74,3 +86,8 @@ The following properties can be configured:
 
 	</tbody>
 </table>
+
+## ToDo
+- icons
+- sd-card available space
+- better indication for the system load
