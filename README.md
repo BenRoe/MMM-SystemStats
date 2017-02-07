@@ -18,6 +18,12 @@ git clone https://github.com/BenRoe/MMM-SystemStats
 
 Configure the module in your `config.js` file.
 
+## Update the module
+
+Navigate into the `MMM-SystemStats` folder with `cd ~/MagicMirror/modules/MMM-SystemStats` and get the latest code from Github with `git pull`.
+
+If you haven't changed the modules, this should work without any problems. Type `git status` to see your changes, if there are any, you can reset them with `git reset --hard`. After that, git pull should be possible.
+
 ## Using the module
 
 To use this module, add it to the modules array in the `config/config.js` file:
