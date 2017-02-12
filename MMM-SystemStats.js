@@ -18,9 +18,9 @@ Module.register('MMM-SystemStats', {
   start: function() {
     //Log.log('Starting module: ' + this.name);
     this.stats = {};
-    this.stats.cpuTemp = 'fetching ...';
-    this.stats.sysLoad = 'fetching ...';
-    this.stats.freeMem = 'fetching ...';
+    this.stats.cpuTemp = this.translate("LOADING").toLowerCase();
+    this.stats.sysLoad = this.translate("LOADING").toLowerCase();
+    this.stats.freeMem = this.translate("LOADING").toLowerCase();
     this.sendSocketNotification('CONFIG', this.config);
   },
 
