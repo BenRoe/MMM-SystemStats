@@ -25,7 +25,7 @@ git clone https://github.com/BenRoe/MMM-SystemStats
 
 Navigate to the new `MMM-SystemStats` folder and install the node dependencies.
 ```
-npm install
+cd MMM-SystemStats/ && npm install
 ```
 
 Configure the module in your `config.js` file.
