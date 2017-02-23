@@ -48,7 +48,7 @@ modules: [
 		config: {
 			updateInterval: 10000,
 			animationSpeed: 0,
-			align: right, // align labels
+			align: 'right', // align labels
 			//header: 'System Stats', // This is optional
 		},
 	},
