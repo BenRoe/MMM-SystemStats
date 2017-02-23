@@ -12,15 +12,16 @@ Module.register('MMM-SystemStats', {
   defaults: {
     updateInterval: 10000,
     animationSpeed: 0,
+    align: 'right',
   },
 
   // Define start sequence
   start: function() {
     //Log.log('Starting module: ' + this.name);
     this.stats = {};
-    this.stats.cpuTemp = this.translate("LOADING").toLowerCase();
-    this.stats.sysLoad = this.translate("LOADING").toLowerCase();
-    this.stats.freeMem = this.translate("LOADING").toLowerCase();
+    this.stats.cpuTemp = this.translate('LOADING').toLowerCase();
+    this.stats.sysLoad = this.translate('LOADING').toLowerCase();
+    this.stats.freeMem = this.translate('LOADING').toLowerCase();
     this.sendSocketNotification('CONFIG', this.config);
   },
 
@@ -37,18 +38,19 @@ Module.register('MMM-SystemStats', {
 
   // Override dom generator.
   getDom: function() {
+    var self = this;
     var wrapper = document.createElement('table');
 
     wrapper.innerHTML = '<tr>' +
-                        '<td class="title" style="text-align:right;">CPU Temp: </td>' +
+                        '<td class="title" style="text-align:' + self.config.align + ';">CPU Temp:&nbsp;</td>' +
                         '<td class="value" style="text-align:left;">' + this.stats.cpuTemp + '</td>' +
                         '</tr>' +
                         '<tr>' +
-                        '<td class="title" style="text-align:right;">System Load: </td>' +
+                        '<td class="title" style="text-align:' + self.config.align + ';">System Load:&nbsp;</td>' +
                         '<td class="value" style="text-align:left;">' + this.stats.sysLoad + '</td>' +
                         '</tr>' +
                         '<tr>' +
-                        '<td class="title" style="text-align:right;">Free RAM: </td>' +
+                        '<td class="title" style="text-align:' + self.config.align + ';">Free RAM:&nbsp;</td>' +
                         '<td class="value" style="text-align:left;">' + this.stats.freeMem + '</td>' +
                         '</tr>';
 

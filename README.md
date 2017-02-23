@@ -48,6 +48,7 @@ modules: [
 		config: {
 			updateInterval: 10000,
 			animationSpeed: 0,
+			align: right, // align labels
 			//header: 'System Stats', // This is optional
 		},
 	},
@@ -81,6 +82,14 @@ The following properties can be configured:
 			<td>Speed of the update animation. (Milliseconds)
 				<br><b>Possible values:</b> <code>0</code> - <code>5000</code>
 				<br><b>Default value:</b> <code>0</code> (animation off)
+			</td>
+		</tr>
+
+		<tr>
+			<td><code>align</code></td>
+			<td>Align the labels.
+				<br><b>Possible values:</b> <code>left</code> or <code>right</code>
+				<br><b>Default value:</b> <code>right</code>
 			</td>
 		</tr>
 
