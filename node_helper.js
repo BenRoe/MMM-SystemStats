@@ -47,10 +47,8 @@ module.exports = NodeHelper.create({
       var stats = {};
       stats.cpuTemp = self.formatCpuTemp(res[0][0]);
       stats.sysLoad = res[1][0].split(' ');
-      console.log("ns-sysLoad : " + res[1][0] + " - " + stats.sysLoad);
       stats.freeMem = res[2][0];
       stats.upTime = res[3][0].split(' ');
-      console.log("ns-upTime : " + res[3][0] + " - " + stats.upTime);
       // console.log(stats);
       self.sendSocketNotification('STATS', stats);
     });
