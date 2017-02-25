@@ -35,18 +35,22 @@ module.exports = NodeHelper.create({
     async.parallel([
       // get cpu temp
       async.apply(exec, '/opt/vc/bin/vcgencmd measure_temp'),
+      // get system load
       async.apply(exec, 'cat /proc/loadavg'),
       // get free ram in %
       async.apply(exec, "free | awk '/^Mem:/ {print $4*100/$2}'"),
-      // get used ram in %
-      // async.apply(exec, 'free | awk '/^Mem:/ {print $3*100/$2}''),
+      // get uptime
+      async.apply(exec, 'cat /proc/uptime'),
 
     ],
     function (err, res) {
       var stats = {};
       stats.cpuTemp = self.formatCpuTemp(res[0][0]);
       stats.sysLoad = res[1][0].split(' ');
+      console.log("ns-sysLoad : " + res[1][0] + " - " + stats.sysLoad);
       stats.freeMem = res[2][0];
+      stats.upTime = res[3][0].split(' ');
+      console.log("ns-upTime : " + res[3][0] + " - " + stats.upTime);
       // console.log(stats);
       self.sendSocketNotification('STATS', stats);
     });

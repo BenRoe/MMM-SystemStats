@@ -25,7 +25,7 @@ git clone https://github.com/BenRoe/MMM-SystemStats
 
 Navigate to the new `MMM-SystemStats` folder and install the node dependencies.
 ```
-cd MMM-SystemStats/ && npm install
+npm install
 ```
 
 Configure the module in your `config.js` file.
@@ -48,7 +48,6 @@ modules: [
 		config: {
 			updateInterval: 10000,
 			animationSpeed: 0,
-			align: 'right', // align labels
 			//header: 'System Stats', // This is optional
 		},
 	},
@@ -86,10 +85,9 @@ The following properties can be configured:
 		</tr>
 
 		<tr>
-			<td><code>align</code></td>
-			<td>Align the labels.
-				<br><b>Possible values:</b> <code>left</code> or <code>right</code>
-				<br><b>Default value:</b> <code>right</code>
+			<td><code>language</code></td>
+			<td>language id for text can be different from MM.
+				<br><b>Default value:</b> <code>config.language</code>
 			</td>
 		</tr>
 
