@@ -52,10 +52,12 @@ Module.register('MMM-SystemStats', {
     //Log.log(payload);
     if (notification === 'STATS') {
       this.stats.cpuTemp = payload.cpuTemp;
-      console.log("this.config.useSyslog-" + this.config.useSyslog + ', this.stats.cpuTemp-'+parseInt(this.stats.cpuTemp)+', this.config.thresholdCPUTemp-'+this.config.thresholdCPUTemp);
+      //console.log("this.config.useSyslog-" + this.config.useSyslog + ', this.stats.cpuTemp-'+parseInt(this.stats.cpuTemp)+', this.config.thresholdCPUTemp-'+this.config.thresholdCPUTemp);
       if (this.config.useSyslog) {
-        if (parseInt(this.stats.cpuTemp) > this.config.thresholdCPUTemp) {
-          console.log('alert for threshold violation');
+        var cpuTemp = Math.ceil(parseFloat(this.stats.cpuTemp));
+        //console.log('before compare (' + cpuTemp + '/' + this.config.thresholdCPUTemp + ')');
+        if (cpuTemp > this.config.thresholdCPUTemp) {
+          console.log('alert for threshold violation (' + cpuTemp + '/' + this.config.thresholdCPUTemp + ')');
           this.sendSocketNotification('ALERT', {config: this.config, type: 'WARNING', message: this.translate("TEMP_THRESHOLD_WARNING") + ' (' + this.config.thresholdCPUTemp + ')' });
         }
       }
