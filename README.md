@@ -91,6 +91,26 @@ The following properties can be configured:
 			</td>
 		</tr>
 
+		<tr>
+			<td><code>useSyslog</code></td>
+			<td>log event to MMM-syslog?
+				<br><b>Default value:</b> <code>false</code>
+			</td>
+		</tr>
+
+		<tr>
+			<td><code>thresholdCPUTemp</code></td>
+			<td>upper-threshold for CPU Temp. If CPU Temp is more than this value, log to MMM-syslog if useSyslog=true. (celcius)
+				<br><b>Default value:</b> <code>75</code>
+			</td>
+		</tr>
+
+		<tr>
+			<td><code>baseURLSyslog</code></td>
+			<td>URL base of MMM-syslog module
+				<br><b>Default value:</b> <code>http://127.0.0.1:8080/syslog</code>
+			</td>
+		</tr>
 	</tbody>
 </table>
 
