@@ -10,6 +10,7 @@
 const NodeHelper = require('node_helper');
 var async = require('async');
 var exec = require('child_process').exec;
+var request = require('request');
 
 module.exports = NodeHelper.create({
   start: function() {
@@ -29,7 +30,14 @@ module.exports = NodeHelper.create({
         self.getStats();
       }, this.config.updateInterval);
     }
-
+    else if (notification === 'ALERT') {
+      this.config = payload.config;
+      // notif syslog
+      console.log('url : ' + payload.config.baseURLSyslog);
+      request({ url: payload.config.baseURLSyslog + '?type=' + payload.type + '&message=' + encodeURI(payload.message), method: 'GET' }, function(error, response, body) {
+        console.log("notif MMM-syslog with response " + response.statusCode);
+      });
+    }
   },
 
   getStats: function() {

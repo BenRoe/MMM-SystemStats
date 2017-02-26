@@ -13,7 +13,10 @@ Module.register('MMM-SystemStats', {
     updateInterval: 10000,
     animationSpeed: 0,
     align: 'right',
-    language: config.language
+    language: config.language,
+    useSyslog: false,
+    thresholdCPUTemp: 75, // in celcius
+    baseURLSyslog: 'http://127.0.0.1:8080/syslog'
   },
 
   // Define required scripts.
@@ -49,10 +52,16 @@ Module.register('MMM-SystemStats', {
     //Log.log(payload);
     if (notification === 'STATS') {
       this.stats.cpuTemp = payload.cpuTemp;
+      console.log("this.config.useSyslog-" + this.config.useSyslog + ', this.stats.cpuTemp-'+parseInt(this.stats.cpuTemp)+', this.config.thresholdCPUTemp-'+this.config.thresholdCPUTemp);
+      if (this.config.useSyslog) {
+        if (parseInt(this.stats.cpuTemp) > this.config.thresholdCPUTemp) {
+          console.log('alert for threshold violation');
+          this.sendSocketNotification('ALERT', {config: this.config, type: 'WARNING', message: this.translate("TEMP_THRESHOLD_WARNING") + ' (' + this.config.thresholdCPUTemp + ')' });
+        }
+      }
       this.stats.sysLoad = payload.sysLoad[0];
       this.stats.freeMem = Number(payload.freeMem).toFixed() + '%';
       upTime = parseInt(payload.upTime[0]);
-      console.log("upTime : " + payload.upTime[0] + " - " + upTime);
       this.stats.upTime = moment.duration(upTime, "seconds").humanize();
       this.updateDom(this.config.animationSpeed);
     }
@@ -80,7 +89,6 @@ Module.register('MMM-SystemStats', {
                         '<td class="value" style="text-align:left;">' + this.stats.upTime + '</td>' +
                         '</tr>';
 
-    console.log(wrapper.innerHTML);
     return wrapper;
   },
 });
