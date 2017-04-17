@@ -60,15 +60,13 @@ modules: [
 The following properties can be configured:
 
 <table width="100%">
-	<!-- why, markdown... -->
 	<thead>
 		<tr>
 			<th>Option</th>
 			<th width="100%">Description</th>
 		</tr>
-	<thead>
+	</thead>
 	<tbody>
-
 		<tr>
 			<td><code>updateInterval</code></td>
 			<td>How often does the content needs to be fetched? (Milliseconds)
@@ -76,7 +74,6 @@ The following properties can be configured:
 				<br><b>Default value:</b> <code>10000</code> (10 seconds)
 			</td>
 		</tr>
-
 		<tr>
 			<td><code>animationSpeed</code></td>
 			<td>Speed of the update animation. (Milliseconds)
@@ -84,7 +81,6 @@ The following properties can be configured:
 				<br><b>Default value:</b> <code>0</code> (animation off)
 			</td>
 		</tr>
-
 		<tr>
 			<td><code>align</code></td>
 			<td>Align the labels.
@@ -92,7 +88,6 @@ The following properties can be configured:
 				<br><b>Default value:</b> <code>right</code>
 			</td>
 		</tr>
-
 	</tbody>
 </table>
 
