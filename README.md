@@ -108,7 +108,7 @@ The following properties can be configured:
 		</tr>
 		<tr>
 			<td><code>baseURLSyslog</code></td>
-			<td>URL base of MMM-syslog module
+			<td>URL base of <a href="https://github.com/paviro/MMM-syslog">MMM-syslog module</a>
 				<br><b>Default value:</b> <code>http://127.0.0.1:8080/syslog</code>
 			</td>
 		</tr>
