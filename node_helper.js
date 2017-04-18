@@ -10,6 +10,7 @@
 const NodeHelper = require('node_helper');
 var async = require('async');
 var exec = require('child_process').exec;
+var request = require('request');
 
 module.exports = NodeHelper.create({
   start: function() {
@@ -22,11 +23,21 @@ module.exports = NodeHelper.create({
 
     if (notification === 'CONFIG') {
       this.config = payload;
+      // first call
+      self.getStats();
+      // interval call
       setInterval(function() {
         self.getStats();
       }, this.config.updateInterval);
     }
-
+    else if (notification === 'ALERT') {
+      this.config = payload.config;
+      // notif syslog
+      console.log('url : ' + payload.config.baseURLSyslog);
+      request({ url: payload.config.baseURLSyslog + '?type=' + payload.type + '&message=' + encodeURI(payload.message), method: 'GET' }, function(error, response, body) {
+        console.log("notif MMM-syslog with response " + response.statusCode);
+      });
+    }
   },
 
   getStats: function() {
@@ -35,11 +46,12 @@ module.exports = NodeHelper.create({
     async.parallel([
       // get cpu temp
       async.apply(exec, '/opt/vc/bin/vcgencmd measure_temp'),
+      // get system load
       async.apply(exec, 'cat /proc/loadavg'),
       // get free ram in %
       async.apply(exec, "free | awk '/^Mem:/ {print $4*100/$2}'"),
-      // get used ram in %
-      // async.apply(exec, 'free | awk '/^Mem:/ {print $3*100/$2}''),
+      // get uptime
+      async.apply(exec, 'cat /proc/uptime'),
 
     ],
     function (err, res) {
@@ -47,6 +59,7 @@ module.exports = NodeHelper.create({
       stats.cpuTemp = self.formatCpuTemp(res[0][0]);
       stats.sysLoad = res[1][0].split(' ');
       stats.freeMem = res[2][0];
+      stats.upTime = res[3][0].split(' ');
       // console.log(stats);
       self.sendSocketNotification('STATS', stats);
     });
