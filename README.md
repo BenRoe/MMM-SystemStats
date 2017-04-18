@@ -59,15 +59,13 @@ modules: [
 The following properties can be configured:
 
 <table width="100%">
-	<!-- why, markdown... -->
 	<thead>
 		<tr>
 			<th>Option</th>
 			<th width="100%">Description</th>
 		</tr>
-	<thead>
+	</thead>
 	<tbody>
-
 		<tr>
 			<td><code>updateInterval</code></td>
 			<td>How often does the content needs to be fetched? (Milliseconds)
@@ -75,7 +73,6 @@ The following properties can be configured:
 				<br><b>Default value:</b> <code>10000</code> (10 seconds)
 			</td>
 		</tr>
-
 		<tr>
 			<td><code>animationSpeed</code></td>
 			<td>Speed of the update animation. (Milliseconds)
@@ -83,28 +80,24 @@ The following properties can be configured:
 				<br><b>Default value:</b> <code>0</code> (animation off)
 			</td>
 		</tr>
-
 		<tr>
 			<td><code>language</code></td>
 			<td>language id for text can be different from MM.
 				<br><b>Default value:</b> <code>config.language</code>
 			</td>
 		</tr>
-
 		<tr>
 			<td><code>useSyslog</code></td>
 			<td>log event to MMM-syslog?
 				<br><b>Default value:</b> <code>false</code>
 			</td>
 		</tr>
-
 		<tr>
 			<td><code>thresholdCPUTemp</code></td>
 			<td>upper-threshold for CPU Temp. If CPU Temp is more than this value, log to MMM-syslog if useSyslog=true. (celcius)
 				<br><b>Default value:</b> <code>75</code>
 			</td>
 		</tr>
-
 		<tr>
 			<td><code>baseURLSyslog</code></td>
 			<td>URL base of MMM-syslog module
