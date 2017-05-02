@@ -3,5 +3,5 @@
 	"SYS_LOAD": "Beban Sistem",
 	"RAM_FREE": "RAM Sisa",
 	"UPTIME": "Nyala",
-	"DISK_FREE": "Ruang Sisa"
+	"TEMP_THRESHOLD_WARNING": "Suhu CPU melebihi batas normal"
 }
