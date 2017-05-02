@@ -63,7 +63,7 @@ module.exports = NodeHelper.create({
       stats.freeMem = res[2][0];
       stats.upTime = res[3][0].split(' ');
       stats.freeSpace = res[4][0];
-      console.log(stats);
+      //console.log(stats);
       self.sendSocketNotification('STATS', stats);
     });
   },
