@@ -94,7 +94,7 @@ Module.register('MMM-SystemStats', {
                         '</tr>' +
                         '<tr>' +
                         '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("DISK_FREE") + ':&nbsp;</td>' +
-                        '<td class="value" style="text-align:left;">' + this.stats.upTime + '</td>' +
+                        '<td class="value" style="text-align:left;">' + this.stats.freeSpace + '</td>' +
                         '</tr>';
 
     return wrapper;
