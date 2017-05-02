@@ -1,5 +1,5 @@
 # Module: MMM-SystemStats
-This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the processor temperature, system load and available RAM.
+This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the processor temperature, system load, available RAM, uptime, and available space.
 
 ![Magic-Mirror Module MMM-SystemStats screenshot](https://raw.githubusercontent.com/BenRoe/MMM-SystemStats/master/screenshot.png)
 
@@ -108,7 +108,7 @@ The following properties can be configured:
 		</tr>
 		<tr>
 			<td><code>baseURLSyslog</code></td>
-			<td>URL base of MMM-syslog module
+			<td>URL base of <a href="https://github.com/paviro/MMM-syslog">MMM-syslog module</a>
 				<br><b>Default value:</b> <code>http://127.0.0.1:8080/syslog</code>
 			</td>
 		</tr>
@@ -117,5 +117,4 @@ The following properties can be configured:
 
 ## ToDo
 - icons
-- sd-card available space
 - better indication for the system load
