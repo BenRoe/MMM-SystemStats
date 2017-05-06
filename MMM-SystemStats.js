@@ -28,6 +28,7 @@ Module.register('MMM-SystemStats', {
 	getTranslations: function() {
     return {
       'en': 'translations/en.json',
+      'fr': 'translations/fr.json',
       'id': 'translations/id.json'
     };
 	},
