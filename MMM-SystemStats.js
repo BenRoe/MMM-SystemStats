@@ -91,7 +91,6 @@ Module.register('MMM-SystemStats', {
                         '<td class="value" style="text-align:left;">' + this.stats.upTime + '</td>' +
                         '</tr>';
 
-    Log.log("dom XX: "+wrapper.innerHTML);
     return wrapper;
   },
 });
