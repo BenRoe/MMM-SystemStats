@@ -48,6 +48,7 @@ modules: [
 		config: {
 			updateInterval: 10000,
 			animationSpeed: 0,
+			orientation : 'vertical', //This can also be 'horizontal'
 			align: 'right', // align labels
 			//header: 'System Stats', // This is optional
 		},
