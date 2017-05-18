@@ -2,5 +2,7 @@
 	"CPU_TEMP": "Temp. CPU",
 	"SYS_LOAD": "Charge SystÃ¨me",
 	"RAM_FREE": "RAM Libre",
-	"UPTIME": "En fonctionnement depuis"
+	"UPTIME": "En fonctionnement depuis",
+	"DISK_FREE": "Espase Dispo.",
+	"TEMP_THRESHOLD_WARNING": "Température CPU excessive"
 }

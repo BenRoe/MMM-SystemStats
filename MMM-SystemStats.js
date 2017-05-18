@@ -46,6 +46,7 @@ Module.register('MMM-SystemStats', {
     this.stats.sysLoad = this.translate('LOADING').toLowerCase();
     this.stats.freeMem = this.translate('LOADING').toLowerCase();
     this.stats.upTime = this.translate('LOADING').toLowerCase();
+    this.stats.freeSpace = this.translate('LOADING').toLowerCase();
     this.sendSocketNotification('CONFIG', this.config);
   },
 
@@ -60,13 +61,14 @@ Module.register('MMM-SystemStats', {
         //console.log('before compare (' + cpuTemp + '/' + this.config.thresholdCPUTemp + ')');
         if (cpuTemp > this.config.thresholdCPUTemp) {
           console.log('alert for threshold violation (' + cpuTemp + '/' + this.config.thresholdCPUTemp + ')');
-          this.sendSocketNotification('ALERT', {config: this.config, type: 'WARNING', message: this.translate("TEMP_THRESHOLD_WARNING") + ' (' + this.config.thresholdCPUTemp + ')' });
+          this.sendSocketNotification('ALERT', {config: this.config, type: 'WARNING', message: this.translate("TEMP_THRESHOLD_WARNING") + ' (' + this.stats.cpuTemp + '/' + this.config.thresholdCPUTemp + ')' });
         }
       }
       this.stats.sysLoad = payload.sysLoad[0];
       this.stats.freeMem = Number(payload.freeMem).toFixed() + '%';
       upTime = parseInt(payload.upTime[0]);
       this.stats.upTime = moment.duration(upTime, "seconds").humanize();
+      this.stats.freeSpace = payload.freeSpace;
       this.updateDom(this.config.animationSpeed);
     }
   },
@@ -88,7 +90,9 @@ Module.register('MMM-SystemStats', {
                         '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("RAM_FREE") + ':&nbsp;</td>' + sep +
                         '<td class="value" style="text-align:left;">' + this.stats.freeMem + '</td>' + sep +
                         '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("UPTIME") + ':&nbsp;</td>' + sep +
-                        '<td class="value" style="text-align:left;">' + this.stats.upTime + '</td>' +
+                        '<td class="value" style="text-align:left;">' + this.stats.upTime + '</td>' + sep +
+						'<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("DISK_FREE") + ':&nbsp;</td>' +
+                        '<td class="value" style="text-align:left;">' + this.stats.freeSpace + '</td>' +
                         '</tr>';
 
     return wrapper;
