@@ -13,6 +13,7 @@ Module.register('MMM-SystemStats', {
     updateInterval: 10000,
     animationSpeed: 0,
     align: 'right',
+    orientation: 'vertical',
     language: config.language,
     useSyslog: false,
     thresholdCPUTemp: 75, // in celcius
@@ -28,6 +29,7 @@ Module.register('MMM-SystemStats', {
 	getTranslations: function() {
     return {
       'en': 'translations/en.json',
+      'fr': 'translations/fr.json',
       'id': 'translations/id.json'
     };
 	},
@@ -44,6 +46,7 @@ Module.register('MMM-SystemStats', {
     this.stats.sysLoad = this.translate('LOADING').toLowerCase();
     this.stats.freeMem = this.translate('LOADING').toLowerCase();
     this.stats.upTime = this.translate('LOADING').toLowerCase();
+    this.stats.freeSpace = this.translate('LOADING').toLowerCase();
     this.sendSocketNotification('CONFIG', this.config);
   },
 
@@ -58,13 +61,14 @@ Module.register('MMM-SystemStats', {
         //console.log('before compare (' + cpuTemp + '/' + this.config.thresholdCPUTemp + ')');
         if (cpuTemp > this.config.thresholdCPUTemp) {
           console.log('alert for threshold violation (' + cpuTemp + '/' + this.config.thresholdCPUTemp + ')');
-          this.sendSocketNotification('ALERT', {config: this.config, type: 'WARNING', message: this.translate("TEMP_THRESHOLD_WARNING") + ' (' + this.config.thresholdCPUTemp + ')' });
+          this.sendSocketNotification('ALERT', {config: this.config, type: 'WARNING', message: this.translate("TEMP_THRESHOLD_WARNING") + ' (' + this.stats.cpuTemp + '/' + this.config.thresholdCPUTemp + ')' });
         }
       }
       this.stats.sysLoad = payload.sysLoad[0];
       this.stats.freeMem = Number(payload.freeMem).toFixed() + '%';
       upTime = parseInt(payload.upTime[0]);
       this.stats.upTime = moment.duration(upTime, "seconds").humanize();
+      this.stats.freeSpace = payload.freeSpace;
       this.updateDom(this.config.animationSpeed);
     }
   },
@@ -73,22 +77,22 @@ Module.register('MMM-SystemStats', {
   getDom: function() {
     var self = this;
     var wrapper = document.createElement('table');
+    var sep = '';
+    if(this.config.orientation === 'vertical'){
+        sep = '</tr><tr>';
+    }
 
     wrapper.innerHTML = '<tr>' +
-                        '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("CPU_TEMP") + ':&nbsp;</td>' +
-                        '<td class="value" style="text-align:left;">' + this.stats.cpuTemp + '</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                        '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("SYS_LOAD") + ':&nbsp;</td>' +
-                        '<td class="value" style="text-align:left;">' + this.stats.sysLoad + '</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                        '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("RAM_FREE") + ':&nbsp;</td>' +
-                        '<td class="value" style="text-align:left;">' + this.stats.freeMem + '</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                        '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("UPTIME") + ':&nbsp;</td>' +
-                        '<td class="value" style="text-align:left;">' + this.stats.upTime + '</td>' +
+                        '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("CPU_TEMP") + ':&nbsp;</td>' + sep +
+                        '<td class="value" style="text-align:left;">' + this.stats.cpuTemp + '</td>' + sep +
+                        '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("SYS_LOAD") + ':&nbsp;</td>' + sep +
+                        '<td class="value" style="text-align:left;">' + this.stats.sysLoad + '</td>' + sep +
+                        '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("RAM_FREE") + ':&nbsp;</td>' + sep +
+                        '<td class="value" style="text-align:left;">' + this.stats.freeMem + '</td>' + sep +
+                        '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("UPTIME") + ':&nbsp;</td>' + sep +
+                        '<td class="value" style="text-align:left;">' + this.stats.upTime + '</td>' + sep +
+						'<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("DISK_FREE") + ':&nbsp;</td>' +
+                        '<td class="value" style="text-align:left;">' + this.stats.freeSpace + '</td>' +
                         '</tr>';
 
     return wrapper;
