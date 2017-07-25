@@ -1,7 +1,7 @@
 # Module: MMM-SystemStats
 This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the processor temperature, system load,  available RAM and free disk space.
 
-![Magic-Mirror Module MMM-SystemStats screenshot](https://raw.githubusercontent.com/clubbi/MMM-SystemStats/master/screenshot.png)
+![Magic-Mirror Module MMM-SystemStats screenshot](https://raw.githubusercontent.com/clubbi/MMM-SystemStats/master/pic.png)
 
 Tested with:
 - Raspberry Pi 3
