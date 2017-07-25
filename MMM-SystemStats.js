@@ -28,7 +28,8 @@ Module.register('MMM-SystemStats', {
 	getTranslations: function() {
     return {
       'en': 'translations/en.json',
-      'id': 'translations/id.json'
+      'id': 'translations/id.json',
+	  'de': 'translations/de.json'
     };
 	},
 
@@ -44,6 +45,7 @@ Module.register('MMM-SystemStats', {
     this.stats.sysLoad = this.translate('LOADING').toLowerCase();
     this.stats.freeMem = this.translate('LOADING').toLowerCase();
     this.stats.upTime = this.translate('LOADING').toLowerCase();
+	this.stats.freeSpace = this.translate('LOADING').toLowerCase();
     this.sendSocketNotification('CONFIG', this.config);
   },
 
@@ -65,6 +67,7 @@ Module.register('MMM-SystemStats', {
       this.stats.freeMem = Number(payload.freeMem).toFixed() + '%';
       upTime = parseInt(payload.upTime[0]);
       this.stats.upTime = moment.duration(upTime, "seconds").humanize();
+	  this.stats.freeSpace = payload.freeSpace;
       this.updateDom(this.config.animationSpeed);
     }
   },
@@ -76,20 +79,28 @@ Module.register('MMM-SystemStats', {
 
     wrapper.innerHTML = '<tr>' +
                         '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("CPU_TEMP") + ':&nbsp;</td>' +
+						'<td style="text-align: center;"><i class="fa fa-thermometer" style="font-size:24px"></i>:&nbsp;</td>' +
                         '<td class="value" style="text-align:left;">' + this.stats.cpuTemp + '</td>' +
                         '</tr>' +
                         '<tr>' +
                         '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("SYS_LOAD") + ':&nbsp;</td>' +
+						'<td style="text-align: center;"><i class="fa fa-tachometer" style="font-size:24px"></i>:&nbsp;</td>' +
                         '<td class="value" style="text-align:left;">' + this.stats.sysLoad + '</td>' +
                         '</tr>' +
                         '<tr>' +
                         '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("RAM_FREE") + ':&nbsp;</td>' +
+						'<td style="text-align: center;"><i class="fa fa-microchip" style="font-size:24px"></i>:&nbsp;</td>' +
                         '<td class="value" style="text-align:left;">' + this.stats.freeMem + '</td>' +
                         '</tr>' +
                         '<tr>' +
                         '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("UPTIME") + ':&nbsp;</td>' +
+						'<td style="text-align: center;"><i class="fa fa-clock-o" style="font-size:24px"></i>:&nbsp;</td>' +
                         '<td class="value" style="text-align:left;">' + this.stats.upTime + '</td>' +
-                        '</tr>';
+                        '</tr>' +
+						'<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("DISK_FREE") + ':&nbsp;</td>' +
+						'<td style="text-align: center;"><i class="fa fa-hdd-o" style="font-size:24px"></i>:&nbsp;</td>' + 
+                        '<td class="value" style="text-align:left;">' + this.stats.freeSpace + '</td>' +
+						'</tr>';
 
     return wrapper;
   },
