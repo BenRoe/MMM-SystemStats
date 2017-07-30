@@ -15,22 +15,25 @@ Module.register('MMM-SystemStats', {
     align: 'right',
     language: config.language,
     useSyslog: false,
-    thresholdCPUTemp: 75, // in celcius
+    thresholdCPUTemp: 70, // in celcius
     baseURLSyslog: 'http://127.0.0.1:8080/syslog'
+	useTelegram: false,
+	botToken: 'ENTER YOUR TOKEN HERE',
+	chatID: 'ENTER YOUR CHAT-ID HERE',
   },
 
   // Define required scripts.
 	getScripts: function () {
-    return ["moment.js", "moment-duration-format.js"];
+      return ["moment.js", "moment-duration-format.js"];
 	},
 
   // Define required translations.
 	getTranslations: function() {
-    return {
-      'en': 'translations/en.json',
-      'id': 'translations/id.json',
-	  'de': 'translations/de.json'
-    };
+	  return {
+        'en': 'translations/en.json',
+        'id': 'translations/id.json',
+	    'de': 'translations/de.json'
+      };
 	},
 
   // Define start sequence
@@ -55,12 +58,24 @@ Module.register('MMM-SystemStats', {
     if (notification === 'STATS') {
       this.stats.cpuTemp = payload.cpuTemp;
       //console.log("this.config.useSyslog-" + this.config.useSyslog + ', this.stats.cpuTemp-'+parseInt(this.stats.cpuTemp)+', this.config.thresholdCPUTemp-'+this.config.thresholdCPUTemp);
-      if (this.config.useSyslog) {
+      if (this.config.useSyslog || this.config.useTelegram) {
         var cpuTemp = Math.ceil(parseFloat(this.stats.cpuTemp));
         //console.log('before compare (' + cpuTemp + '/' + this.config.thresholdCPUTemp + ')');
         if (cpuTemp > this.config.thresholdCPUTemp) {
-          console.log('alert for threshold violation (' + cpuTemp + '/' + this.config.thresholdCPUTemp + ')');
-          this.sendSocketNotification('ALERT', {config: this.config, type: 'WARNING', message: this.translate("TEMP_THRESHOLD_WARNING") + ' (' + this.config.thresholdCPUTemp + ')' });
+          //console.log('alert for threshold violation (' + cpuTemp + '/' + this.config.thresholdCPUTemp + ')');
+          if (this.config.useSyslog) {
+			this.sendSocketNotification('ALERT',{
+				config: this.config,
+				type: 'WARNING',
+				message: this.translate("TEMP_THRESHOLD_WARNING") + ' (' + this.config.thresholdCPUTemp + '°C)'
+			});
+		  }
+		  if (this.config.useTelegram){
+				this.sendSocketNotification('ALERTTG', {
+					config: this.config,
+					message: this.translate("TEMP_THRESHOLD_WARNING") + ' (' + this.config.thresholdCPUTemp + '°C)'
+				});
+			}
         }
       }
       this.stats.sysLoad = payload.sysLoad[0];

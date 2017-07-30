@@ -32,12 +32,18 @@ module.exports = NodeHelper.create({
     }
     else if (notification === 'ALERT') {
       this.config = payload.config;
-      // notif syslog
-      console.log('url : ' + payload.config.baseURLSyslog);
+      //console.log('url : ' + payload.config.baseURLSyslog);
       request({ url: payload.config.baseURLSyslog + '?type=' + payload.type + '&message=' + encodeURI(payload.message), method: 'GET' }, function(error, response, body) {
         console.log("notif MMM-syslog with response " + response.statusCode);
       });
     }
+	else if (notification === 'ALERTTG') {
+	  this.config = payload.config;
+	  //console.log('https://api.telegram.org/bot' + this.config.botToken + '/sendMessage?chat_id=' + this.config.chatID + '&text=' + encodeURI(payload.message));
+	  request({ url:  'https://api.telegram.org/bot' + this.config.botToken + '/sendMessage?chat_id=' + this.config.chatID + '&text=' + encodeURI(payload.message), method: 'POST' }, function(error, response, body) {
+        console.log("TG with response " + response.statusCode);
+      });
+	}
   },
 
   getStats: function() {

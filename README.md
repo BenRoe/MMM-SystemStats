@@ -1,5 +1,5 @@
 # Module: MMM-SystemStats
-This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the processor temperature, system load,  available RAM and free disk space.
+This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the processor temperature, system load, available RAM, uptime and free disk space.
 
 ![Magic-Mirror Module MMM-SystemStats screenshot](https://github.com/clubbi/MMM-SystemStats/blob/master/pic.png)
 
@@ -45,11 +45,11 @@ modules: [
 		module: 'MMM-SystemStats',
 		position: 'top_center', // This can be any of the regions.
 		classes: 'small dimmed', // Add your own styling. Optional.
+		//header: 'System Stats', // This is optional
 		config: {
 			updateInterval: 10000,
 			animationSpeed: 0,
-			align: 'right', // align labels
-			//header: 'System Stats', // This is optional
+			align: 'right', // align labels			
 		},
 	},
 ]
@@ -111,6 +111,21 @@ The following properties can be configured:
 			<td>URL base of <a href="https://github.com/paviro/MMM-syslog">MMM-syslog module</a>
 				<br><b>Default value:</b> <code>http://127.0.0.1:8080/syslog</code>
 			</td>
+		</tr>
+		<tr>
+		<td><code>useTelegram</code></td>
+			<td>get Telegram message?
+				<br><b>Default value:</b> <code>false</code>
+				<br><a href="https://core.telegram.org/bots#6-botfather">Create your own Telegram Bot</a>
+			</td>
+		</tr>
+		<tr>
+			<td><code>botToken</code></td>
+			<td>Enter here your Telegram Bot Token</td>
+		</tr>
+		<tr>
+			<td><code>ChatID</code></td>
+			<td>Enter here your Telegram Chat-ID</td>
 		</tr>
 	</tbody>
 </table>
