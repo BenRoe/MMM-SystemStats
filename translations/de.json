@@ -3,6 +3,6 @@
 	"SYS_LOAD":  "System Auslastung",
 	"RAM_FREE":  "Freier RAM",
 	"UPTIME":    "Laufzeit",
-	"DISK_FREE": "freier Speicherplatz",
-	"TEMP_THRESHOLD_WARNING": "CPU ZU WARM!!!"
+	"DISK_FREE": "Freier Speicherplatz",
+	"TEMP_THRESHOLD_WARNING": "CPU zu heiß!"
 }
