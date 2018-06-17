@@ -50,6 +50,7 @@ modules: [
 			animationSpeed: 0,
 			align: 'right', // align labels
 			//header: 'System Stats', // This is optional
+			units: 'metric', // default, metric, imperial
 		},
 	},
 ]
@@ -87,6 +88,14 @@ The following properties can be configured:
 				<br><b>Default value:</b> <code>config.language</code>
 			</td>
 		</tr>
+		<tr>
+			<td><code>units</code></td>
+			<td>What units to use.
+				<br>Possible values: config.units = Specified by config.js, default = Kelvin, metric = Celsius, imperial = Fahrenheit
+				<br><b>Default value:</b> <code>config.units</code>
+			</td>
+		</tr>
+
 		<tr>
 			<td><code>align</code></td>
 			<td>Align the labels.
