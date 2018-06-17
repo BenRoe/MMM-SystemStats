@@ -20,6 +20,13 @@ Module.register('MMM-SystemStats', {
     baseURLSyslog: 'http://127.0.0.1:8080/syslog'
   },
 
+
+  getStyles: function () {
+    return [
+      "MMM-SystemStats.css",
+    ];
+  },
+
   // Define required scripts.
 	getScripts: function () {
     return ["moment.js", "moment-duration-format.js"];
@@ -71,25 +78,34 @@ Module.register('MMM-SystemStats', {
   },
 
   // Override dom generator.
+
+
   getDom: function() {
     var self = this;
     var wrapper = document.createElement('table');
+    wrapper.className = "small";
 
-    wrapper.innerHTML = '<tr>' +
-                        '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("CPU_TEMP") + ':&nbsp;</td>' +
-                        '<td class="value" style="text-align:left;">' + this.stats.cpuTemp + '</td>' +
+
+
+    wrapper.innerHTML = '<tr class="normal">' +
+                        '<td class="symbol"> <span class="fa fa-thermometer"></span></td>' +
+                        '<td class="title light" style="text-align:' + self.config.align + ';">' + this.translate("CPU_TEMP") + ':&nbsp;</td>' +
+                        '<td class="value bright" style="text-align:left;">' + this.stats.cpuTemp + '</td>' +
                         '</tr>' +
-                        '<tr>' +
-                        '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("SYS_LOAD") + ':&nbsp;</td>' +
-                        '<td class="value" style="text-align:left;">' + this.stats.sysLoad + '</td>' +
+                        '<tr class="normal">' +
+                        '<td class="symbol"><span class="fa fa-tasks"></span></td>' +
+                        '<td class="title light" style="text-align:' + self.config.align + ';">' + this.translate("SYS_LOAD") + ':&nbsp;</td>' +
+                        '<td class="value bright" style="text-align:left;">' + this.stats.sysLoad + '</td>' +
                         '</tr>' +
-                        '<tr>' +
-                        '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("RAM_FREE") + ':&nbsp;</td>' +
-                        '<td class="value" style="text-align:left;">' + this.stats.freeMem + '</td>' +
+                        '<tr class="normal">' +
+                        '<td class="symbol"><span class="fa fa-microchip"></span></td>' +
+                        '<td class="title light" style="text-align:' + self.config.align + ';">' + this.translate("RAM_FREE") + ':&nbsp;</td>' +
+                        '<td class="value bright" style="text-align:left;">' + this.stats.freeMem + '</td>' +
                         '</tr>' +
-                        '<tr>' +
-                        '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("UPTIME") + ':&nbsp;</td>' +
-                        '<td class="value" style="text-align:left;">' + this.stats.upTime + '</td>' +
+                        '<tr class="normal">' +
+                        '<td class="symbol"><span class="fa fa-clock-o"></span></td>' +
+                        '<td class="title light" style="text-align:' + self.config.align + ';">' + this.translate("UPTIME") + ':&nbsp;</td>' +
+                        '<td class="value bright" style="text-align:left;">' + this.stats.upTime + '</td>' +
                         '</tr>';
 
     return wrapper;
