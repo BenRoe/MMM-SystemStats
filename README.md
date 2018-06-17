@@ -91,7 +91,7 @@ The following properties can be configured:
 		<tr>
 			<td><code>units</code></td>
 			<td>What units to use.
-				<br>Possible values: config.units = Specified by config.js, default = Kelvin, metric = Celsius, imperial = Fahrenheit
+				<br>Possible values: `config.units` = Specified by config.js, `default` = Kelvin, `metric` = Celsius, `imperial` = Fahrenheit
 				<br><b>Default value:</b> <code>config.units</code>
 			</td>
 		</tr>
