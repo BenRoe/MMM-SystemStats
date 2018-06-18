@@ -22,5 +22,5 @@
   "homepage": "https://github.com/BenRoe/MMM-SystemStats#readme",
   "dependencies": {
     "async": "latest"
-    }
+  }
 }

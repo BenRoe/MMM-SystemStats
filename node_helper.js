@@ -43,9 +43,24 @@ module.exports = NodeHelper.create({
   getStats: function() {
     var self = this;
 
+    var temp_conv = '';
+    switch (this.config.units) {
+    case "imperial":
+        temp_conv = 'awk \'{printf("%.1f°F\\n",(($1*1.8)/1e3)+32)}\'';
+        break;
+    case "metric":
+        temp_conv = 'awk \'{printf("%.1f°C\\n",$1/1e3)}\'';
+        break;
+    case "default":
+    default:
+        // kelvin
+        temp_conv = 'awk \'{printf("%.1f°K\\n",($1/1e3)+273.15)}\'';
+        break;
+    }
+
     async.parallel([
       // get cpu temp
-      async.apply(exec, '/opt/vc/bin/vcgencmd measure_temp'),
+      async.apply(exec, temp_conv + ' /sys/class/thermal/thermal_zone0/temp'),
       // get system load
       async.apply(exec, 'cat /proc/loadavg'),
       // get free ram in %
@@ -56,17 +71,13 @@ module.exports = NodeHelper.create({
     ],
     function (err, res) {
       var stats = {};
-      stats.cpuTemp = self.formatCpuTemp(res[0][0]);
+      stats.cpuTemp = res[0][0];
       stats.sysLoad = res[1][0].split(' ');
       stats.freeMem = res[2][0];
       stats.upTime = res[3][0].split(' ');
       // console.log(stats);
       self.sendSocketNotification('STATS', stats);
     });
-  },
-
-  formatCpuTemp: function(temp) {
-    return temp.replace('temp=','').replace('\'','\°');
   },
 
   // http://unix.stackexchange.com/questions/69185/getting-cpu-usage-same-every-time/69194#69194
