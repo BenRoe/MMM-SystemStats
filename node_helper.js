@@ -52,7 +52,9 @@ module.exports = NodeHelper.create({
       async.apply(exec, "free | awk '/^Mem:/ {print $4*100/$2}'"),
       // get uptime
       async.apply(exec, 'cat /proc/uptime'),
-
+      // get sd card free space
+      async.apply(exec, 'df -h | grep -n root | cut -c31-34'),
+     
     ],
     function (err, res) {
       var stats = {};
@@ -60,6 +62,7 @@ module.exports = NodeHelper.create({
       stats.sysLoad = res[1][0].split(' ');
       stats.freeMem = res[2][0];
       stats.upTime = res[3][0].split(' ');
+      stats.sdCard = res[4][0];
       // console.log(stats);
       self.sendSocketNotification('STATS', stats);
     });

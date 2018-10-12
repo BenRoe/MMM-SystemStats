@@ -44,6 +44,7 @@ Module.register('MMM-SystemStats', {
     this.stats.sysLoad = this.translate('LOADING').toLowerCase();
     this.stats.freeMem = this.translate('LOADING').toLowerCase();
     this.stats.upTime = this.translate('LOADING').toLowerCase();
+    this.stats.sdCard = this.translate('LOADING').toLowerCase();
     this.sendSocketNotification('CONFIG', this.config);
   },
 
@@ -65,6 +66,7 @@ Module.register('MMM-SystemStats', {
       this.stats.freeMem = Number(payload.freeMem).toFixed() + '%';
       upTime = parseInt(payload.upTime[0]);
       this.stats.upTime = moment.duration(upTime, "seconds").humanize();
+      this.stats.sdCard = payload.sdCard;
       this.updateDom(this.config.animationSpeed);
     }
   },
@@ -89,6 +91,9 @@ Module.register('MMM-SystemStats', {
                         '<tr>' +
                         '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("UPTIME") + ':&nbsp;</td>' +
                         '<td class="value" style="text-align:left;">' + this.stats.upTime + '</td>' +
+                        '</tr>';
+	  		'<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("FREE SPACE") + ':&nbsp;</td>' +
+                        '<td class="value" style="text-align:left;">' + this.stats.sdCard + '</td>' +
                         '</tr>';
 
     return wrapper;
