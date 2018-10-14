@@ -1,5 +1,5 @@
 # Module: MMM-SystemStats
-This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the processor temperature, system load and available RAM.
+This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the processor temperature, system load, available RAM, uptime, and available space.
 
 ![Magic-Mirror Module MMM-SystemStats screenshot](https://raw.githubusercontent.com/BenRoe/MMM-SystemStats/master/screenshot.png)
 
@@ -117,5 +117,4 @@ The following properties can be configured:
 
 ## ToDo
 - icons
-- sd-card available space
 - better indication for the system load
