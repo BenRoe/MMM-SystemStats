@@ -1,5 +1,5 @@
 # Module: MMM-SystemStats
-This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the processor temperature, system load, available RAM, uptime, and available space.
+This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the processor temperature, system load, available RAM, uptime and free disk space.
 
 ![Magic-Mirror Module MMM-SystemStats screenshot](https://raw.githubusercontent.com/BenRoe/MMM-SystemStats/master/screenshot.png)
 
@@ -45,11 +45,11 @@ modules: [
 		module: 'MMM-SystemStats',
 		position: 'top_center', // This can be any of the regions.
 		classes: 'small dimmed', // Add your own styling. Optional.
+		//header: 'System Stats', // This is optional
 		config: {
 			updateInterval: 10000,
 			animationSpeed: 0,
 			align: 'right', // align labels
-			//header: 'System Stats', // This is optional
 		},
 	},
 ]
@@ -116,5 +116,4 @@ The following properties can be configured:
 </table>
 
 ## ToDo
-- icons
 - better indication for the system load
