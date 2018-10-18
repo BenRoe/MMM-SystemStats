@@ -16,7 +16,8 @@ Module.register('MMM-SystemStats', {
     language: config.language,
     useSyslog: false,
     thresholdCPUTemp: 70, // in celcius
-    baseURLSyslog: 'http://127.0.0.1:8080/syslog'
+    baseURLSyslog: 'http://127.0.0.1:8080/syslog',
+    view: 'textAndIcon'
   },
 
   // Define required scripts.
@@ -78,31 +79,54 @@ Module.register('MMM-SystemStats', {
     var self = this;
     var wrapper = document.createElement('table');
 
-    wrapper.innerHTML = '<tr>' +
-                          '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("CPU_TEMP") + ':&nbsp;</td>' +
-						              '<td style="text-align: center;"><i class="fa fa-thermometer" style="font-size:24px"></i>:&nbsp;</td>' +
-                          '<td class="value" style="text-align:left;">' + this.stats.cpuTemp + '</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                          '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("SYS_LOAD") + ':&nbsp;</td>' +
-						              '<td style="text-align: center;"><i class="fa fa-tachometer" style="font-size:24px"></i>:&nbsp;</td>' +
-                          '<td class="value" style="text-align:left;">' + this.stats.sysLoad + '</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                          '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("RAM_FREE") + ':&nbsp;</td>' +
-						              '<td style="text-align: center;"><i class="fa fa-microchip" style="font-size:24px"></i>:&nbsp;</td>' +
-                          '<td class="value" style="text-align:left;">' + this.stats.freeMem + '</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                          '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("UPTIME") + ':&nbsp;</td>' +
-						              '<td style="text-align: center;"><i class="fa fa-clock-o" style="font-size:24px"></i>:&nbsp;</td>' +
-                          '<td class="value" style="text-align:left;">' + this.stats.upTime + '</td>' +
-                        '</tr>' +
-                        '<tr>' +
-						              '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("DISK_FREE") + ':&nbsp;</td>' +
-						              '<td style="text-align: center;"><i class="fa fa-hdd-o" style="font-size:24px"></i>:&nbsp;</td>' +
-                          '<td class="value" style="text-align:left;">' + this.stats.freeSpace + '</td>' +
-                        '</tr>';
+    var sysData = {
+      cpuTemp: {
+        text: 'CPU_TEMP',
+        icon: 'fa-thermometer',
+      },
+      sysLoad: {
+        text: 'SYS_LOAD',
+        icon: 'fa-tachometer',
+      },
+      freeMem: {
+        text: 'RAM_FREE',
+        icon: 'fa-microchip',
+      },
+      upTime: {
+        text: 'UPTIME',
+        icon: 'fa-clock-o',
+      },
+      freeSpace: {
+        text: 'DISK_FREE',
+        icon: 'fa-hdd-o',
+      },
+    };
+
+    Object.keys(sysData).forEach(function (item){
+      var row = document.createElement('tr');
+
+      if (self.config.view.match(/^(text|textAndIcon)$/)) {
+        var c1 = document.createElement('td');
+        c1.setAttribute('class', 'title');
+        c1.style.textAlign = self.config.align;
+        c1.innerText = self.translate(sysData[item].text);
+        row.appendChild(c1);
+      }
+
+      if (self.config.view.match(/^(icon|textAndIcon)$/)) {
+        var c2 = document.createElement('td');
+        c2.innerHTML = `<i class="fa ${sysData[item].icon}" style="margin-right: 4px;"></i>`;
+        row.appendChild(c2);
+      }
+
+      var c3 = document.createElement('td');
+      c3.setAttribute('class', 'value');
+      c3.style.textAlign = self.config.align;
+      c3.innerText = self.stats[item];
+      row.appendChild(c3);
+
+      wrapper.appendChild(row);
+    });
 
     return wrapper;
   },
