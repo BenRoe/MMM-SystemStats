@@ -95,7 +95,7 @@ The following properties can be configured:
 			</td>
 		</tr>
 		<tr>
-			<td><code>view</code></td>
+			<td><code>label</code></td>
 			<td>Show text labels with icons, only text, or only icons.
 				<br><b>Possible values:</b> <code>textAndIcon</code>, <code>text</code> or <code>icon</code>
 				<br><b>Default value:</b> <code>textAndIcon</code>

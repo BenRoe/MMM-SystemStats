@@ -17,7 +17,7 @@ Module.register('MMM-SystemStats', {
     useSyslog: false,
     thresholdCPUTemp: 70, // in celcius
     baseURLSyslog: 'http://127.0.0.1:8080/syslog',
-    view: 'textAndIcon'
+    label: 'textAndIcon'
   },
 
   // Define required scripts.
@@ -105,7 +105,7 @@ Module.register('MMM-SystemStats', {
     Object.keys(sysData).forEach(function (item){
       var row = document.createElement('tr');
 
-      if (self.config.view.match(/^(text|textAndIcon)$/)) {
+      if (self.config.label.match(/^(text|textAndIcon)$/)) {
         var c1 = document.createElement('td');
         c1.setAttribute('class', 'title');
         c1.style.textAlign = self.config.align;
@@ -113,7 +113,7 @@ Module.register('MMM-SystemStats', {
         row.appendChild(c1);
       }
 
-      if (self.config.view.match(/^(icon|textAndIcon)$/)) {
+      if (self.config.label.match(/^(icon|textAndIcon)$/)) {
         var c2 = document.createElement('td');
         c2.innerHTML = `<i class="fa ${sysData[item].icon}" style="margin-right: 4px;"></i>`;
         row.appendChild(c2);
