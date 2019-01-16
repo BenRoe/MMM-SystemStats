@@ -1,0 +1,8 @@
+{
+	"CPU_TEMP": "CPU Temp",
+	"SYS_LOAD": "CPU belast",
+	"RAM_FREE": "Fri RAM",
+	"UPTIME": "tid sedan start",
+	"DISK_FREE": "lagrings plats",
+	"TEMP_THRESHOLD_WARNING": "CPU Temperaturen går ovanför gränsen"
+}
