@@ -17,7 +17,9 @@ Module.register('MMM-SystemStats', {
     useSyslog: false,
     thresholdCPUTemp: 70, // in celcius
     baseURLSyslog: 'http://127.0.0.1:8080/syslog',
-    label: 'textAndIcon'
+    label: 'textAndIcon',
+	host: 'localhost',
+	remoteUser: 'stats'
   },
 
   // Define required scripts.
@@ -43,11 +45,11 @@ Module.register('MMM-SystemStats', {
     moment.locale(this.config.language);
 
     this.stats = {};
-    this.stats.cpuTemp = this.translate('LOADING').toLowerCase();
-    this.stats.sysLoad = this.translate('LOADING').toLowerCase();
-    this.stats.freeMem = this.translate('LOADING').toLowerCase();
-    this.stats.upTime = this.translate('LOADING').toLowerCase();
-    this.stats.freeSpace = this.translate('LOADING').toLowerCase();
+    this.stats.cpuTemp = this.translate('LOADING');
+    this.stats.sysLoad = this.translate('LOADING');
+    this.stats.freeMem = this.translate('LOADING');
+    this.stats.upTime = this.translate('LOADING');
+    this.stats.freeSpace = this.translate('LOADING');
     this.sendSocketNotification('CONFIG', this.config);
   },
 

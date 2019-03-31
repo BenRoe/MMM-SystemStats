@@ -42,18 +42,23 @@ module.exports = NodeHelper.create({
 
   getStats: function() {
     var self = this;
+	var sshCommand = "";
 
+	if(self.config.host !== 'localhost') {
+		sshCommand = "ssh " + self.config.remoteUser + "@" + self.config.host + " "
+	}
+	
     async.parallel([
       // get cpu temp
-      async.apply(exec, '/opt/vc/bin/vcgencmd measure_temp'),
+      async.apply(exec, sshCommand + '/opt/vc/bin/vcgencmd measure_temp'),
       // get system load
-      async.apply(exec, 'cat /proc/loadavg'),
+      async.apply(exec, sshCommand + 'cat /proc/loadavg'),
       // get free ram in %
-      async.apply(exec, "free | awk '/^Mem:/ {print $4*100/$2}'"),
+      async.apply(exec, sshCommand + "free | awk '/^Mem:/ {print $4*100/$2}'"),
       // get uptime
-      async.apply(exec, 'cat /proc/uptime'),
+      async.apply(exec, sshCommand + 'cat /proc/uptime'),
       // get root free-space
-      async.apply(exec, "df -h|grep /dev/root|awk '{print $4}'"),
+      async.apply(exec, sshCommand + "df -h|grep /dev/root|awk '{print $4}'"),
 
     ],
     function (err, res) {
