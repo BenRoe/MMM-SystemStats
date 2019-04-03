@@ -118,7 +118,7 @@ Module.register('MMM-SystemStats', {
 
       if (self.config.label.match(/^(icon|textAndIcon)$/)) {
         var c2 = document.createElement('td');
-        c2.innerHTML = `<i class="fa ${sysData[item].icon}" style="margin-right: 4px;"></i>`;
+        c2.innerHTML = `<i class="fa ${sysData[item].icon} fa-fw"></i>`;
         row.appendChild(c2);
       }
 
