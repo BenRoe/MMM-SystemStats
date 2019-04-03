@@ -19,7 +19,10 @@ Module.register('MMM-SystemStats', {
     baseURLSyslog: 'http://127.0.0.1:8080/syslog',
     label: 'textAndIcon'
   },
-
+  // Define required styles.
+  getStyles: function() {
+    return ["font-awesome.css"];
+  },
   // Define required scripts.
 	getScripts: function () {
       return ["moment.js", "moment-duration-format.js"];
