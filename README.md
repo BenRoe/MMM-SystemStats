@@ -1,7 +1,7 @@
 # Module: MMM-SystemStats
 This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the processor temperature, system load, available RAM, uptime and free disk space of localhost or a remote host.
 
-![Magic-Mirror Module MMM-SystemStats screenshot](https://raw.githubusercontent.com/BenRoe/MMM-SystemStats/master/screenshot.png)
+![Magic-Mirror Module MMM-SystemStats screenshot](screenshot.png)
 
 Tested with:
 - Raspberry Pi
@@ -154,91 +154,110 @@ The following properties can be configured:
 		</tr>
 		<tr>
 			<td><code>cpuTempCmd</code></td>
-			<td>
+			<td>Command to get the cpu temperature.
+				Default value is for raspberry pi.
+				For usage with lm-sensors use something like "sensors | grep 'Package id 0'".
 				<br><b>Default value:</b> <code>'/opt/vc/bin/vcgencmd measure_temp'</code>
 			</td>
 		</tr>
 		<tr>
 			<td><code>sysLoadCmd</code></td>
-			<td>
+			<td>Command to get the system load.
+				Default value is for raspberry pi.
 				<br><b>Default value:</b> <code>'cat /proc/loadavg'</code>
 			</td>
 		</tr>
 		<tr>
 			<td><code>freeMemCmd</code></td>
-			<td>
+			<td>Command to get the free memory.
+				Default value is for raspberry pi.
+				For german language use "free | awk '/^Speicher:/ {print $4*100/$2}'".
 				<br><b>Default value:</b> <code>"free | awk '/^Mem:/ {print $4*100/$2}'"</code>
 			</td>
 		</tr>
 		<tr>
 			<td><code>upTimeCmd</code></td>
-			<td>
+			<td>Command to get the uptime.
+				Default value is for raspberry pi.
 				<br><b>Default value:</b> <code>'cat /proc/uptime'</code>
 			</td>
 		</tr>
 		<tr>
 			<td><code>freeSpaceCmd</code></td>
-			<td>
+			<td>Command to get the free disc space. 
+				Default value is for raspberry pi.
+				For other systems use something like "df -h|grep /dev/%your_disc%|awk '{print $4}'" and replace %your_disc% with an appropriate value.
 				<br><b>Default value:</b> <code>"df -h|grep /dev/root|awk '{print $4}'"</code>
 			</td>
 		</tr>
 		<tr>
 			<td><code>cpuTempSplit</code></td>
-			<td>
+			<td>A delimiter to split the result of the cpuTempCmd.
+				Default value is for raspberry pi.
 				<br><b>Default value:</b> <code>''</code>
 			</td>
 		</tr>
 		<tr>
 			<td><code>sysLoadSplit</code></td>
-			<td>
+			<td>A delimiter to split the result of the sysLoadCmd.
+				Default value is for raspberry pi.
 				<br><b>Default value:</b> <code>' '</code>
 			</td>
 		</tr>
 		<tr>
 			<td><code>freeMemSplit</code></td>
-			<td>
+			<td>A delimiter to split the result of the freeMemCmd.
+				Default value is for raspberry pi.
 				<br><b>Default value:</b> <code>''</code>
 			</td>
 		</tr>
 		<tr>
 			<td><code>upTimeSplit</code></td>
-			<td>
+			<td>A delimiter to split the result of the upTimeCmd.
+				Default value is for raspberry pi.
 				<br><b>Default value:</b> <code>' '</code>
 			</td>
 		</tr>
 		<tr>
 			<td><code>freeSpaceSplit</code></td>
-			<td>
+			<td>A delimiter to split the result of the freeSpaceCmd.
+				Default value is for raspberry pi.
 				<br><b>Default value:</b> <code>''</code>
 			</td>
 		</tr>
 		<tr>
 			<td><code>cpuTempReplace</code></td>
-			<td>
+			<td>An Array of replacement pairs. Will be applied after the split to the result of the cpuTempCmd.
+				Default value is for raspberry pi.
+				For usage with lm-sensors use something like [['Package id 0:  +',''],['(high = +100.0°C, crit = +100.0°C)','']].
 				<br><b>Default value:</b> <code>[['temp=',''],['\'','\°']]</code>
 			</td>
 		</tr>
 		<tr>
 			<td><code>sysLoadReplace</code></td>
-			<td>
+			<td>An Array of replacement pairs. Will be applied after the split to the result of the sysLoadCmd.
+				Default value is for raspberry pi.
 				<br><b>Default value:</b> <code>[]</code>
 			</td>
 		</tr>
 		<tr>
 			<td><code>freeMemReplace</code></td>
-			<td>
+			<td>An Array of replacement pairs. Will be applied after the split to the result of the freeMemCmd.
+				Default value is for raspberry pi.
 				<br><b>Default value:</b> <code>[]</code>
 			</td>
 		</tr>
 		<tr>
 			<td><code>upTimeReplace</code></td>
-			<td>
+			<td>An Array of replacement pairs. Will be applied after the split to the result of the upTimeCmd.
+				Default value is for raspberry pi.
 				<br><b>Default value:</b> <code>[]</code>
 			</td>
 		</tr>
 		<tr>
 			<td><code>freeSpaceReplace</code></td>
-			<td>
+			<td>An Array of replacement pairs. Will be applied after the split to the result of the freeSpaceCmd.
+				Default value is for raspberry pi.
 				<br><b>Default value:</b> <code>[]</code>
 			</td>
 		</tr>
