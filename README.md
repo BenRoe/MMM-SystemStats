@@ -142,6 +142,7 @@ The following properties can be configured:
 		<tr>
 			<td><code>host</code></td>
 			<td>A name or address of the host to get the system stats from.
+				Only necessary if you want to get the stats from a remote host.
 				<br><b>Default value:</b> <code>localhost</code>
 			</td>
 		</tr>
@@ -149,6 +150,7 @@ The following properties can be configured:
 			<td><code>remoteUser</code></td>
 			<td>The user to connect to the remote host.
 				Only used for host other then localhost.
+				User must be able to connect via ssh to remote host without entering a password, i.e. public key authentication must be setup.
 				<br><b>Default value:</b> <code>stats</code>
 			</td>
 		</tr>
