@@ -10,53 +10,80 @@
 Module.register('MMM-SystemStats', {
 
   defaults: {
-    updateInterval: 10000,
-    animationSpeed: 0,
-    align: 'right',
-    language: config.language,
-    useSyslog: false,
-    thresholdCPUTemp: 70, // in celcius
-    baseURLSyslog: 'http://127.0.0.1:8080/syslog',
-    label: 'textAndIcon',
-	host: 'localhost',
-	remoteUser: 'stats'
+	id:					'',
+    updateInterval:		10000,
+    animationSpeed:		0,
+    align:				'right',
+    language:			config.language,
+    useSyslog:			false,
+    thresholdCPUTemp:	70, // in celcius
+    baseURLSyslog:		'http://127.0.0.1:8080/syslog',
+    label:				'textAndIcon',
+	host:				'localhost',
+	remoteUser:			'stats',
+	cpuTempCmd:			'/opt/vc/bin/vcgencmd measure_temp',
+	sysLoadCmd:			'cat /proc/loadavg',
+	freeMemCmd:			"free | awk '/^Mem:/ {print $4*100/$2}'",
+	upTimeCmd:			'cat /proc/uptime',
+	freeSpaceCmd:		"df -h|grep /dev/root|awk '{print $4}'",
+	cpuTempSplit:		'',
+	sysLoadSplit:		' ',
+	freeMemSplit:		'',
+	upTimeSplit:		' ',
+	freeSpaceSplit:		'',
+	cpuTempReplace:		[['temp=',''],['\'','\°']],
+	sysLoadReplace:		[],
+	freeMemReplace:		[],
+	upTimeReplace:		[],
+	freeSpaceReplace:	[]	
   },
 
   // Define required scripts.
-	getScripts: function () {
+  getScripts: function () {
       return ["moment.js", "moment-duration-format.js"];
-	},
+  },
 
   // Define required translations.
-	getTranslations: function() {
+  getTranslations: function() {
     return {
       'en': 'translations/en.json',
       'fr': 'translations/fr.json',
       'id': 'translations/id.json',
       'de': 'translations/de.json'
     };
-	},
+  },
 
   // Define start sequence
   start: function() {
+	var self = this;
     Log.log('Starting module: ' + this.name);
 
     // set locale
     moment.locale(this.config.language);
 
+	this.config.id = this.identifier;
+	
     this.stats = {};
     this.stats.cpuTemp = this.translate('LOADING');
     this.stats.sysLoad = this.translate('LOADING');
     this.stats.freeMem = this.translate('LOADING');
     this.stats.upTime = this.translate('LOADING');
     this.stats.freeSpace = this.translate('LOADING');
-    this.sendSocketNotification('CONFIG', this.config);
+	
+	// first request
+	self.sendStatsRequest();
+	// repeating requests
+	setInterval(function(){self.sendStatsRequest();},this.config.updateInterval);
+  },
+  
+  sendStatsRequest: function() {
+	  this.sendSocketNotification('REQUEST_SYSTEM_STATS', this.config);
   },
 
   socketNotificationReceived: function(notification, payload) {
     //Log.log('MMM-SystemStats: socketNotificationReceived ' + notification);
     //Log.log(payload);
-    if (notification === 'STATS') {
+    if (notification === 'RESPONSE_SYSTEM_STATS' && payload.id === this.identifier) {
       this.stats.cpuTemp = payload.cpuTemp;
       //console.log("this.config.useSyslog-" + this.config.useSyslog + ', this.stats.cpuTemp-'+parseInt(this.stats.cpuTemp)+', this.config.thresholdCPUTemp-'+this.config.thresholdCPUTemp);
       if (this.config.useSyslog) {
@@ -69,8 +96,7 @@ Module.register('MMM-SystemStats', {
       }
       this.stats.sysLoad = payload.sysLoad[0];
       this.stats.freeMem = Number(payload.freeMem).toFixed() + '%';
-      upTime = parseInt(payload.upTime[0]);
-      this.stats.upTime = moment.duration(upTime, "seconds").humanize();
+      this.stats.upTime = moment.duration(parseInt(payload.upTime[0]), "seconds").humanize();
       this.stats.freeSpace = payload.freeSpace;
       this.updateDom(this.config.animationSpeed);
     }
