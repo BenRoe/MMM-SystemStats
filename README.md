@@ -5,7 +5,7 @@ This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the p
 
 Tested with:
 - Raspberry Pi
-- Ubuntu 18.04
+- Ubuntu 18.04 (remote host)
 
 ## Dependencies
 - An installation of [MagicMirror<sup>2</sup>](https://github.com/MichMich/MagicMirror)
