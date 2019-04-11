@@ -96,7 +96,6 @@ The following properties can be configured:
 				<br><b>Default value:</b> <code>config.units</code>
 			</td>
 		</tr>
-
 		<tr>
 			<td><code>align</code></td>
 			<td>Align the labels.
