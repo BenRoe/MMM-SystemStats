@@ -1,5 +1,5 @@
 {
-  "name": "Magic-Mirror-Module-SystemStats",
+  "name": "magic-mirror-module-systemstats",
   "version": "1.0.0",
   "description": "Linux Sytem Information module for the Magic Mirror.",
   "repository": {
@@ -14,7 +14,9 @@
     "module"
   ],
   "author": "Benjamin Roesner",
-  "contributors": "https://github.com/BenRoe/MMM-SystemStats/graphs/contributors",
+  "contributors": [
+    "https://github.com/BenRoe/MMM-SystemStats/graphs/contributors"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/BenRoe/MMM-SystemStats/issues"

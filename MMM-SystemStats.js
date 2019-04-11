@@ -18,18 +18,21 @@ Module.register('MMM-SystemStats', {
     useSyslog: false,
     thresholdCPUTemp: 75, // in configured units
     baseURLSyslog: 'http://127.0.0.1:8080/syslog'
+    label: 'textAndIcon'
   },
 
   // Define required scripts.
 	getScripts: function () {
-    return ["moment.js", "moment-duration-format.js"];
+      return ["moment.js", "moment-duration-format.js"];
 	},
 
   // Define required translations.
 	getTranslations: function() {
     return {
       'en': 'translations/en.json',
-      'id': 'translations/id.json'
+      'fr': 'translations/fr.json',
+      'id': 'translations/id.json',
+      'de': 'translations/de.json'
     };
 	},
 
@@ -45,6 +48,7 @@ Module.register('MMM-SystemStats', {
     this.stats.sysLoad = this.translate('LOADING').toLowerCase();
     this.stats.freeMem = this.translate('LOADING').toLowerCase();
     this.stats.upTime = this.translate('LOADING').toLowerCase();
+    this.stats.freeSpace = this.translate('LOADING').toLowerCase();
     this.sendSocketNotification('CONFIG', this.config);
   },
 
@@ -59,13 +63,14 @@ Module.register('MMM-SystemStats', {
         //console.log('before compare (' + cpuTemp + '/' + this.config.thresholdCPUTemp + ')');
         if (cpuTemp > this.config.thresholdCPUTemp) {
           console.log('alert for threshold violation (' + cpuTemp + '/' + this.config.thresholdCPUTemp + ')');
-          this.sendSocketNotification('ALERT', {config: this.config, type: 'WARNING', message: this.translate("TEMP_THRESHOLD_WARNING") + ' (' + this.config.thresholdCPUTemp + ')' });
+          this.sendSocketNotification('ALERT', {config: this.config, type: 'WARNING', message: this.translate("TEMP_THRESHOLD_WARNING") + ' (' + this.stats.cpuTemp + '/' + this.config.thresholdCPUTemp + ')' });
         }
       }
       this.stats.sysLoad = payload.sysLoad[0];
       this.stats.freeMem = Number(payload.freeMem).toFixed() + '%';
       upTime = parseInt(payload.upTime[0]);
       this.stats.upTime = moment.duration(upTime, "seconds").humanize();
+      this.stats.freeSpace = payload.freeSpace;
       this.updateDom(this.config.animationSpeed);
     }
   },
@@ -75,22 +80,54 @@ Module.register('MMM-SystemStats', {
     var self = this;
     var wrapper = document.createElement('table');
 
-    wrapper.innerHTML = '<tr>' +
-                        '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("CPU_TEMP") + ':&nbsp;</td>' +
-                        '<td class="value" style="text-align:left;">' + this.stats.cpuTemp + '</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                        '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("SYS_LOAD") + ':&nbsp;</td>' +
-                        '<td class="value" style="text-align:left;">' + this.stats.sysLoad + '</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                        '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("RAM_FREE") + ':&nbsp;</td>' +
-                        '<td class="value" style="text-align:left;">' + this.stats.freeMem + '</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                        '<td class="title" style="text-align:' + self.config.align + ';">' + this.translate("UPTIME") + ':&nbsp;</td>' +
-                        '<td class="value" style="text-align:left;">' + this.stats.upTime + '</td>' +
-                        '</tr>';
+    var sysData = {
+      cpuTemp: {
+        text: 'CPU_TEMP',
+        icon: 'fa-thermometer',
+      },
+      sysLoad: {
+        text: 'SYS_LOAD',
+        icon: 'fa-tachometer',
+      },
+      freeMem: {
+        text: 'RAM_FREE',
+        icon: 'fa-microchip',
+      },
+      upTime: {
+        text: 'UPTIME',
+        icon: 'fa-clock-o',
+      },
+      freeSpace: {
+        text: 'DISK_FREE',
+        icon: 'fa-hdd-o',
+      },
+    };
+
+    Object.keys(sysData).forEach(function (item){
+      var row = document.createElement('tr');
+
+      if (self.config.label.match(/^(text|textAndIcon)$/)) {
+        var c1 = document.createElement('td');
+        c1.setAttribute('class', 'title');
+        c1.style.textAlign = self.config.align;
+        c1.innerText = self.translate(sysData[item].text);
+        row.appendChild(c1);
+      }
+
+      if (self.config.label.match(/^(icon|textAndIcon)$/)) {
+        var c2 = document.createElement('td');
+        c2.innerHTML = `<i class="fa ${sysData[item].icon}" style="margin-right: 4px;"></i>`;
+        row.appendChild(c2);
+      }
+
+      var c3 = document.createElement('td');
+      c3.setAttribute('class', 'value');
+      c3.style.textAlign = self.config.align;
+      c3.innerText = self.stats[item];
+      row.appendChild(c3);
+
+      wrapper.appendChild(row);
+    });
 
     return wrapper;
   },

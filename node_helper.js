@@ -33,7 +33,7 @@ module.exports = NodeHelper.create({
     else if (notification === 'ALERT') {
       this.config = payload.config;
       // notif syslog
-      console.log('url : ' + payload.config.baseURLSyslog);
+      //console.log('url : ' + payload.config.baseURLSyslog);
       request({ url: payload.config.baseURLSyslog + '?type=' + payload.type + '&message=' + encodeURI(payload.message), method: 'GET' }, function(error, response, body) {
         console.log("notif MMM-syslog with response " + response.statusCode);
       });
@@ -67,6 +67,8 @@ module.exports = NodeHelper.create({
       async.apply(exec, "free | awk '/^Mem:/ {print $4*100/$2}'"),
       // get uptime
       async.apply(exec, 'cat /proc/uptime'),
+      // get root free-space
+      async.apply(exec, "df -h|grep /dev/root|awk '{print $4}'"),
 
     ],
     function (err, res) {
@@ -75,6 +77,7 @@ module.exports = NodeHelper.create({
       stats.sysLoad = res[1][0].split(' ');
       stats.freeMem = res[2][0];
       stats.upTime = res[3][0].split(' ');
+	  stats.freeSpace = res[4][0];
       // console.log(stats);
       self.sendSocketNotification('STATS', stats);
     });

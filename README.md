@@ -1,5 +1,5 @@
 # Module: MMM-SystemStats
-This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the processor temperature, system load and available RAM.
+This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the processor temperature, system load, available RAM, uptime and free disk space.
 
 ![Magic-Mirror Module MMM-SystemStats screenshot](https://raw.githubusercontent.com/BenRoe/MMM-SystemStats/master/screenshot.png)
 
@@ -44,13 +44,14 @@ modules: [
 	{
 		module: 'MMM-SystemStats',
 		position: 'top_center', // This can be any of the regions.
-		classes: 'small dimmed', // Add your own styling. Optional.
+		// classes: 'small dimmed', // Add your own styling. OPTIONAL.
+		// header: 'System Stats', // Set the header text OPTIONAL
 		config: {
-			updateInterval: 10000,
-			animationSpeed: 0,
+			updateInterval: 10000, // every 10 seconds
 			align: 'right', // align labels
 			//header: 'System Stats', // This is optional
 			units: 'metric', // default, metric, imperial
+			view: 'textAndIcon',
 		},
 	},
 ]
@@ -104,6 +105,13 @@ The following properties can be configured:
 			</td>
 		</tr>
 		<tr>
+			<td><code>label</code></td>
+			<td>Show text labels with icons, only text, or only icons.
+				<br><b>Possible values:</b> <code>textAndIcon</code>, <code>text</code> or <code>icon</code>
+				<br><b>Default value:</b> <code>textAndIcon</code>
+			</td>
+		</tr>
+		<tr>
 			<td><code>useSyslog</code></td>
 			<td>log event to MMM-syslog?
 				<br><b>Default value:</b> <code>false</code>
@@ -112,7 +120,7 @@ The following properties can be configured:
 		<tr>
 			<td><code>thresholdCPUTemp</code></td>
 			<td>upper-threshold for CPU Temp. If CPU Temp is more than this value, log to MMM-syslog if useSyslog=true. (celcius)
-				<br><b>Default value:</b> <code>75</code>
+				<br><b>Default value:</b> <code>70</code>
 			</td>
 		</tr>
 		<tr>
@@ -125,6 +133,4 @@ The following properties can be configured:
 </table>
 
 ## ToDo
-- icons
-- sd-card available space
 - better indication for the system load
