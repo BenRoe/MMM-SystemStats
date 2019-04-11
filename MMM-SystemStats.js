@@ -20,7 +20,10 @@ Module.register('MMM-SystemStats', {
     baseURLSyslog: 'http://127.0.0.1:8080/syslog'
     label: 'textAndIcon'
   },
-
+  // Define required styles.
+  getStyles: function() {
+    return ["font-awesome.css"];
+  },
   // Define required scripts.
 	getScripts: function () {
       return ["moment.js", "moment-duration-format.js"];
@@ -116,7 +119,7 @@ Module.register('MMM-SystemStats', {
 
       if (self.config.label.match(/^(icon|textAndIcon)$/)) {
         var c2 = document.createElement('td');
-        c2.innerHTML = `<i class="fa ${sysData[item].icon}" style="margin-right: 4px;"></i>`;
+        c2.innerHTML = `<i class="fa ${sysData[item].icon} fa-fw"></i>`;
         row.appendChild(c2);
       }
 
