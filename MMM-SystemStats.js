@@ -14,9 +14,10 @@ Module.register('MMM-SystemStats', {
     animationSpeed: 0,
     align: 'right',
     language: config.language,
+    units: config.units,
     useSyslog: false,
-    thresholdCPUTemp: 70, // in celcius
-    baseURLSyslog: 'http://127.0.0.1:8080/syslog',
+    thresholdCPUTemp: 75, // in configured units
+    baseURLSyslog: 'http://127.0.0.1:8080/syslog'
     label: 'textAndIcon'
   },
 
