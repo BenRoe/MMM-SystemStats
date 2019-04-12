@@ -17,7 +17,7 @@ Module.register('MMM-SystemStats', {
     units: config.units,
     useSyslog: false,
     thresholdCPUTemp: 75, // in configured units
-    baseURLSyslog: 'http://127.0.0.1:8080/syslog'
+    baseURLSyslog: 'http://127.0.0.1:8080/syslog',
     label: 'textAndIcon'
   },
   // Define required styles.
