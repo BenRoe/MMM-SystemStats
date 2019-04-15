@@ -39,6 +39,7 @@ module.exports = NodeHelper.create({
     var self = this;
 	var sshCommand = "";
 
+
 	if(config.host !== 'localhost') {
 		sshCommand = "ssh " + config.remoteUser + "@" + config.host + " ";
 	}
@@ -64,16 +65,17 @@ module.exports = NodeHelper.create({
     ],
     function (err, res) {
       var stats = {};
-	  stats.id =		config.id;
+      stats.id =		config.id;
       stats.cpuTemp =	self.formatData(res[0][0],config.cpuTempSplit,config.cpuTempReplace);
       stats.sysLoad =	self.formatData(res[1][0],config.sysLoadSplit,config.sysLoadReplace);
       stats.freeMem =	self.formatData(res[2][0],config.freeMemSplit,config.freeMemReplace);
       stats.upTime =	self.formatData(res[3][0],config.upTimeSplit,config.upTimeReplace);
-	  stats.freeSpace =	self.formatData(res[4][0],config.freeSpaceSplit,config.freeSpaceReplace);
+      stats.freeSpace =	self.formatData(res[4][0],config.freeSpaceSplit,config.freeSpaceReplace);
       // console.log(stats);
       self.sendSocketNotification('RESPONSE_SYSTEM_STATS', stats);
     });
   },
+
 
   formatData: function(data, spl, repl) {
 	if(spl !== '') {

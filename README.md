@@ -52,6 +52,8 @@ modules: [
 		config: {
 			updateInterval: 10000, // every 10 seconds
 			align: 'right', // align labels
+			//header: 'System Stats', // This is optional
+			units: 'metric', // default, metric, imperial
 			view: 'textAndIcon',
 		},
 	},
@@ -105,6 +107,13 @@ The following properties can be configured:
 			<td><code>language</code></td>
 			<td>language id for text can be different from MM.
 				<br><b>Default value:</b> <code>config.language</code>
+			</td>
+		</tr>
+		<tr>
+			<td><code>units</code></td>
+			<td>What units to use.
+				<br>Possible values: <code>config.units</code> = Specified by config.js, <code>default</code> = Kelvin, <code>metric</code> = Celsius, <code>imperial</code> = Fahrenheit
+				<br><b>Default value:</b> <code>config.units</code>
 			</td>
 		</tr>
 		<tr>
