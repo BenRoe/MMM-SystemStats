@@ -45,6 +45,7 @@ To use this module, add it to the modules array in the `config/config.js` file:
 ```javascript
 modules: [
 	{
+		// basic configuration for local raspberry
 		module: 'MMM-SystemStats',
 		position: 'top_center', // This can be any of the regions.
 		// classes: 'small dimmed', // Add your own styling. OPTIONAL.
@@ -58,6 +59,7 @@ modules: [
 		},
 	},
 	{
+		// advanced configuration for remote host, e.g. ubuntu linux server
 		module: 'MMM-SystemStats',
 		position: 'top_center', // This can be any of the regions.
 		classes: 'small dimmed', // Add your own styling. OPTIONAL.
@@ -77,7 +79,7 @@ modules: [
 ]
 ```
 
-## Configuration options
+## Basic Configuration options (localhost, Raspbian)
 
 The following properties can be configured:
 
@@ -107,13 +109,6 @@ The following properties can be configured:
 			<td><code>language</code></td>
 			<td>language id for text can be different from MM.
 				<br><b>Default value:</b> <code>config.language</code>
-			</td>
-		</tr>
-		<tr>
-			<td><code>units</code></td>
-			<td>What units to use.
-				<br>Possible values: <code>config.units</code> = Specified by config.js, <code>default</code> = Kelvin, <code>metric</code> = Celsius, <code>imperial</code> = Fahrenheit
-				<br><b>Default value:</b> <code>config.units</code>
 			</td>
 		</tr>
 		<tr>
@@ -148,6 +143,19 @@ The following properties can be configured:
 				<br><b>Default value:</b> <code>http://127.0.0.1:8080/syslog</code>
 			</td>
 		</tr>
+	</tbody>
+</table>
+
+## Advanced Configuration options (remot host, any os)
+
+<table width="100%">
+	<thead>
+		<tr>
+			<th>Option</th>
+			<th width="100%">Description</th>
+		</tr>
+	</thead>
+	<tbody>
 		<tr>
 			<td><code>host</code></td>
 			<td>A name or address of the host to get the system stats from.
