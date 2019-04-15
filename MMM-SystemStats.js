@@ -10,15 +10,15 @@
 Module.register('MMM-SystemStats', {
 
   defaults: {
+	updateInterval:		10000,
+	animationSpeed:		0,
+	align:				'right',
+	language:			config.language,
+	useSyslog:			false,
+	thresholdCPUTemp:	70, // in celcius
+	baseURLSyslog:		'http://127.0.0.1:8080/syslog',
+	label:				'textAndIcon',
 	id:					'',
-    updateInterval:		10000,
-    animationSpeed:		0,
-    align:				'right',
-    language:			config.language,
-    useSyslog:			false,
-    thresholdCPUTemp:	70, // in celcius
-    baseURLSyslog:		'http://127.0.0.1:8080/syslog',
-    label:				'textAndIcon',
 	host:				'localhost',
 	remoteUser:			'stats',
 	cpuTempCmd:			'/opt/vc/bin/vcgencmd measure_temp',
