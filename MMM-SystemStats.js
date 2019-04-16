@@ -65,7 +65,7 @@ Module.register('MMM-SystemStats', {
     // set locale
     moment.locale(this.config.language);
 
-	this.config.id = this.identifier;
+	this.config.id = this.identifier + Math.random();
 	
     this.stats = {};
     this.stats.cpuTemp = this.translate('LOADING');
@@ -87,7 +87,7 @@ Module.register('MMM-SystemStats', {
   socketNotificationReceived: function(notification, payload) {
     //Log.log('MMM-SystemStats: socketNotificationReceived ' + notification);
     //Log.log(payload);
-    if (notification === 'RESPONSE_SYSTEM_STATS' && payload.id === this.identifier) {
+    if (notification === 'RESPONSE_SYSTEM_STATS' && payload.id === this.config.id) {
       this.stats.cpuTemp = payload.cpuTemp;
       //console.log("this.config.useSyslog-" + this.config.useSyslog + ', this.stats.cpuTemp-'+parseInt(this.stats.cpuTemp)+', this.config.thresholdCPUTemp-'+this.config.thresholdCPUTemp);
       if (this.config.useSyslog) {
