@@ -10,7 +10,6 @@
 Module.register('MMM-SystemStats', {
 
   defaults: {
-
 	updateInterval:		10000,
 	animationSpeed:		0,
 	align:				'right',
