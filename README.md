@@ -176,6 +176,10 @@ The following properties can be configured:
 			<td>Command to get the cpu temperature.
 				Default value is for raspberry pi.
 				For usage with lm-sensors use something like "sensors | grep 'Package id 0'".
+				<br><b>Example values:</b>
+				<br><code>'awk \'{printf("%.1f°C\\n",$1/1e3)}\' /sys/class/thermal/thermal_zone0/temp'</code> for metric unit °C
+				<br><code>'awk \'{printf("%.1f°F\\n",(($1*1.8)/1e3)+32)}\' /sys/class/thermal/thermal_zone0/temp'</code> for imperial unit °F
+				<br><code>'awk \'{printf("%.1f°K\\n",($1/1e3)+273.15)}\' /sys/class/thermal/thermal_zone0/temp'</code> for absolute unit °K
 				<br><b>Default value:</b> <code>'/opt/vc/bin/vcgencmd measure_temp'</code>
 			</td>
 		</tr>
