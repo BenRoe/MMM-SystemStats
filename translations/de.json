@@ -4,5 +4,6 @@
 	"RAM_FREE":  "Freier RAM",
 	"UPTIME":    "Laufzeit",
 	"DISK_FREE": "Freier Speicherplatz",
-	"TEMP_THRESHOLD_WARNING": "CPU zu heiß!"
+	"TEMP_THRESHOLD_WARNING": "CPU zu heiß!",
+	"LOADING":   "Lade ..."
 }

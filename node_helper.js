@@ -15,24 +15,19 @@ var request = require('request');
 module.exports = NodeHelper.create({
   start: function() {
     //console.log('Starting node helper: ' + this.name);
+	this.config = {};
   },
 
   // Subclass socketNotificationReceived received.
   socketNotificationReceived: function(notification, payload) {
     var self = this;
 
-    if (notification === 'CONFIG') {
-      this.config = payload;
-      // first call
-      self.getStats();
-      // interval call
-      setInterval(function() {
-        self.getStats();
-      }, this.config.updateInterval);
+    if (notification === 'REQUEST_SYSTEM_STATS') {
+      self.getStats(payload);
     }
     else if (notification === 'ALERT') {
       this.config = payload.config;
-      // notif syslog
+      // notify syslog
       //console.log('url : ' + payload.config.baseURLSyslog);
       request({ url: payload.config.baseURLSyslog + '?type=' + payload.type + '&message=' + encodeURI(payload.message), method: 'GET' }, function(error, response, body) {
         console.log("notif MMM-syslog with response " + response.statusCode);
@@ -40,47 +35,56 @@ module.exports = NodeHelper.create({
     }
   },
 
-  getStats: function() {
+  getStats: function(config) {
     var self = this;
+	var sshCommand = "";
 
-    var temp_conv = '';
-    switch (this.config.units) {
-    case "imperial":
-        temp_conv = 'awk \'{printf("%.1f°F\\n",(($1*1.8)/1e3)+32)}\'';
-        break;
-    case "metric":
-        temp_conv = 'awk \'{printf("%.1f°C\\n",$1/1e3)}\'';
-        break;
-    case "default":
-    default:
-        // kelvin
-        temp_conv = 'awk \'{printf("%.1f°K\\n",($1/1e3)+273.15)}\'';
-        break;
-    }
 
+	if(config.host !== 'localhost') {
+		sshCommand = "ssh " + config.remoteUser + "@" + config.host + " ";
+	}
+	
+	var cmdCpuTemp =	sshCommand + config.cpuTempCmd;
+	var cmdSysLoad =	sshCommand + config.sysLoadCmd;
+	var cmdFreeMem =	sshCommand + config.freeMemCmd;
+	var cmdUpTime =		sshCommand + config.upTimeCmd;
+	var cmdFreeSpace =	sshCommand + config.freeSpaceCmd;
+	
     async.parallel([
       // get cpu temp
-      async.apply(exec, temp_conv + ' /sys/class/thermal/thermal_zone0/temp'),
+      async.apply(exec, cmdCpuTemp),
       // get system load
-      async.apply(exec, 'cat /proc/loadavg'),
+      async.apply(exec, cmdSysLoad),
       // get free ram in %
-      async.apply(exec, "free | awk '/^Mem:/ {print $4*100/$2}'"),
+      async.apply(exec, cmdFreeMem),
       // get uptime
-      async.apply(exec, 'cat /proc/uptime'),
-      // get root free-space
-      async.apply(exec, "df -h|grep /dev/root|awk '{print $4}'"),
+      async.apply(exec, cmdUpTime),
+      // get free-space
+      async.apply(exec, cmdFreeSpace),
 
     ],
     function (err, res) {
       var stats = {};
-      stats.cpuTemp = res[0][0];
-      stats.sysLoad = res[1][0].split(' ');
-      stats.freeMem = res[2][0];
-      stats.upTime = res[3][0].split(' ');
-	  stats.freeSpace = res[4][0];
+      stats.id =		config.id;
+      stats.cpuTemp =	self.formatData(res[0][0],config.cpuTempSplit,config.cpuTempReplace);
+      stats.sysLoad =	self.formatData(res[1][0],config.sysLoadSplit,config.sysLoadReplace);
+      stats.freeMem =	self.formatData(res[2][0],config.freeMemSplit,config.freeMemReplace);
+      stats.upTime =	self.formatData(res[3][0],config.upTimeSplit,config.upTimeReplace);
+      stats.freeSpace =	self.formatData(res[4][0],config.freeSpaceSplit,config.freeSpaceReplace);
       // console.log(stats);
-      self.sendSocketNotification('STATS', stats);
+      self.sendSocketNotification('RESPONSE_SYSTEM_STATS', stats);
     });
+  },
+
+
+  formatData: function(data, spl, repl) {
+	if(spl !== '') {
+	  data = data.split(spl);
+	}
+	for(var i = 0; i < repl.length; i++) {
+	  data = data.replace(repl[i][0],repl[i][1])
+	}
+	return data;
   },
 
   // http://unix.stackexchange.com/questions/69185/getting-cpu-usage-same-every-time/69194#69194
