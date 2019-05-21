@@ -18,7 +18,8 @@ Module.register('MMM-SystemStats', {
     useSyslog: false,
     thresholdCPUTemp: 75, // in configured units
     baseURLSyslog: 'http://127.0.0.1:8080/syslog',
-    label: 'textAndIcon'
+    label: 'textAndIcon',
+    singleRow: false,
   },
   // Define required styles.
   getStyles: function() {
@@ -105,9 +106,17 @@ Module.register('MMM-SystemStats', {
         icon: 'fa-hdd-o',
       },
     };
+	  
+    var row;
+
+    if (self.config.singleRow) {
+      row = document.createElement('tr');
+    }
 
     Object.keys(sysData).forEach(function (item){
-      var row = document.createElement('tr');
+      if (!self.config.singleRow) {
+        row = document.createElement('tr');
+      }
 
       if (self.config.label.match(/^(text|textAndIcon)$/)) {
         var c1 = document.createElement('td');
@@ -129,8 +138,14 @@ Module.register('MMM-SystemStats', {
       c3.innerText = self.stats[item];
       row.appendChild(c3);
 
-      wrapper.appendChild(row);
+      if (!self.config.singleRow) {
+        wrapper.appendChild(row);
+      }
     });
+
+    if (self.config.singleRow) {
+       wrapper.appendChild(row);
+    }
 
     return wrapper;
   },
