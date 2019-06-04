@@ -59,17 +59,32 @@ module.exports = NodeHelper.create({
     }
 
     async.parallel([
-      // get cpu temp
-      async.apply(exec, temp_conv + ' /sys/class/thermal/thermal_zone0/temp'),
+	    // propose config setting pi/intel (config chanegs for pi/intel in main js needs adding
+      if ( cpu === 'pi') {
+      	// get pi cpu temp
+      	async.apply(exec, temp_conv + ' /sys/class/thermal/thermal_zone0/temp'),
+      } else if ( cpu === 'intel') {
+	// get intel cpu temp
+	async.apply(exec, "sensors|grep 1:|awk '{print $3}'"),   
+      } else {
+	async.apply(exec, "CPU not defined correctly and/or not supported"),
+      }
       // get system load
       async.apply(exec, 'cat /proc/loadavg'),
       // get free ram in %
       async.apply(exec, "free | awk '/^Mem:/ {print $4*100/$2}'"),
       // get uptime
       async.apply(exec, 'cat /proc/uptime'),
-      // get root free-space
-      async.apply(exec, "df -h|grep /dev/root|awk '{print $4}'"),
-
+      // Similar for detecting space
+      if ( cpu === 'pi') {
+      	// get root free-space on pi
+      	async.apply(exec, "df -h|grep /dev/root|awk '{print $4}'"),
+      } else if ( cpu === 'intel') {
+	// get root free-space on intel
+	async.apply(exec, "df -h|grep /dev/sda2|awk '{print $4}'"), // for Intel Linux 
+      } else {
+	async.apply(exec, "CPU not defined correctly and/or not supported"),
+      }
     ],
     function (err, res) {
       var stats = {};
