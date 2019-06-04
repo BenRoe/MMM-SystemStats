@@ -47,11 +47,11 @@ Module.register('MMM-SystemStats', {
     moment.locale(this.config.language);
 
     this.stats = {};
-    this.stats.cpuTemp = this.translate('LOADING').toLowerCase();
-    this.stats.sysLoad = this.translate('LOADING').toLowerCase();
-    this.stats.freeMem = this.translate('LOADING').toLowerCase();
-    this.stats.upTime = this.translate('LOADING').toLowerCase();
-    this.stats.freeSpace = this.translate('LOADING').toLowerCase();
+    this.stats.cpuTemp = this.translate('Loading');
+    this.stats.sysLoad = this.translate('Loading');
+    this.stats.freeMem = this.translate('Loading');
+    this.stats.upTime = this.translate('Loading');
+    this.stats.freeSpace = this.translate('Loading');
     this.sendSocketNotification('CONFIG', this.config);
   },
 
