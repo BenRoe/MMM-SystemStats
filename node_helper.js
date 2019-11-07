@@ -69,7 +69,8 @@ module.exports = NodeHelper.create({
       async.apply(exec, 'cat /proc/uptime'),
       // get root free-space
       async.apply(exec, "df -h|grep /dev/root|awk '{print $4}'"),
-
+      // get ip address
+      async.apply(exec, "ifconfig | grep inet | grep '255.255.255.0' | tail -1 | awk '{print $2}'"),
     ],
     function (err, res) {
       var stats = {};
@@ -78,6 +79,7 @@ module.exports = NodeHelper.create({
       stats.freeMem = res[2][0];
       stats.upTime = res[3][0].split(' ');
 	  stats.freeSpace = res[4][0];
+	  stats.ipaddr = res[5][0];
       // console.log(stats);
       self.sendSocketNotification('STATS', stats);
     });
