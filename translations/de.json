@@ -4,5 +4,6 @@
 	"RAM_FREE":  "Freier RAM",
 	"UPTIME":    "Laufzeit",
 	"DISK_FREE": "Freier Speicherplatz",
+	"IP_ADDRESS": "IP Adresse",
 	"TEMP_THRESHOLD_WARNING": "CPU zu heiß!"
 }
