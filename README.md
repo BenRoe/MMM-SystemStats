@@ -4,7 +4,7 @@ This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the p
 ![Magic-Mirror Module MMM-SystemStats screenshot](https://raw.githubusercontent.com/BenRoe/MMM-SystemStats/master/screenshot.png)
 
 Tested with:
-- Raspberry Pi
+- Raspberry Pi.
 
 ## Dependencies
 - An installation of [MagicMirror<sup>2</sup>](https://github.com/MichMich/MagicMirror)
@@ -57,7 +57,7 @@ modules: [
 ]
 ```
 
-## Configuration options
+## Configuration options:
 
 The following properties can be configured:
 
