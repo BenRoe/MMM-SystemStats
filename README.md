@@ -1,4 +1,6 @@
 # Module: MMM-SystemStats
+<img src="https://img.shields.io/badge/Maintained%3F-no-red.svg?style=flat-square">
+
 This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the processor temperature, system load, available RAM, uptime and free disk space.
 
 ![Magic-Mirror Module MMM-SystemStats screenshot](https://raw.githubusercontent.com/BenRoe/MMM-SystemStats/master/screenshot.png)
