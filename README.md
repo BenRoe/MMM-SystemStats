@@ -3,7 +3,13 @@
 
 This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the processor temperature, system load, available RAM, uptime and free disk space.
 
+display as block
+
 ![Magic-Mirror Module MMM-SystemStats screenshot](https://raw.githubusercontent.com/BenRoe/MMM-SystemStats/master/screenshot.png)
+
+display a single line
+
+![Magic-Mirror Module MMM-SystemStats screenshot](https://raw.githubusercontent.com/spitzlbergerj/MMM-SystemStats/master/img/MMM-SystemStats-line.jpg) 
 
 Tested with:
 - Raspberry Pi
@@ -54,6 +60,7 @@ modules: [
 			//header: 'System Stats', // This is optional
 			units: 'metric', // default, metric, imperial
 			view: 'textAndIcon',
+			singleRow: false,
 		},
 	},
 ]
@@ -128,6 +135,12 @@ The following properties can be configured:
 			<td><code>baseURLSyslog</code></td>
 			<td>URL base of <a href="https://github.com/paviro/MMM-syslog">MMM-syslog module</a>
 				<br><b>Default value:</b> <code>http://127.0.0.1:8080/syslog</code>
+			</td>
+		</tr>
+		<tr>
+			<td><code>singleRow</code></td>
+			<td>list all values in one single row
+				<br><b>Default value:</b> <code>false</code>
 			</td>
 		</tr>
 	</tbody>
