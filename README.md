@@ -3,7 +3,7 @@
 
 This [MagicMirror](https://github.com/MichMich/MagicMirror) modules, shows the processor temperature, system load, available RAM, uptime and free disk space.
 
-![Magic-Mirror Module MMM-SystemStats screenshot](https://raw.githubusercontent.com/BenRoe/MMM-SystemStats/master/screenshot.png)
+![Magic-Mirror Module MMM-SystemStats screenshot](screenshot.png)
 
 Tested with:
 - Raspberry Pi

@@ -4,5 +4,6 @@
 	"RAM_FREE": "RAM Sisa",
 	"UPTIME": "Nyala",
 	"DISK_FREE": "Ruang Sisa",
+	"IP_ADDRESS": "Alamat IP",
 	"TEMP_THRESHOLD_WARNING": "Suhu CPU melebihi batas normal"
 }

@@ -52,6 +52,7 @@ Module.register('MMM-SystemStats', {
     this.stats.freeMem = this.translate('LOADING').toLowerCase();
     this.stats.upTime = this.translate('LOADING').toLowerCase();
     this.stats.freeSpace = this.translate('LOADING').toLowerCase();
+    this.stats.ipAddress = this.translate('LOADING').toLowerCase();
     this.sendSocketNotification('CONFIG', this.config);
   },
 
@@ -74,6 +75,7 @@ Module.register('MMM-SystemStats', {
       upTime = parseInt(payload.upTime[0]);
       this.stats.upTime = moment.duration(upTime, "seconds").humanize();
       this.stats.freeSpace = payload.freeSpace;
+      this.stats.ipAddress = payload.ipAddress;
       this.updateDom(this.config.animationSpeed);
     }
   },
@@ -104,6 +106,10 @@ Module.register('MMM-SystemStats', {
         text: 'DISK_FREE',
         icon: 'fa-hdd-o',
       },
+      ipAddress: {
+        text: 'IP_ADDRESS',
+        icon: 'fa-sitemap',
+      }
     };
 
     Object.keys(sysData).forEach(function (item){
