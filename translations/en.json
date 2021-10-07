@@ -4,5 +4,5 @@
 	"RAM_FREE": "Free RAM",
 	"UPTIME": "Uptime",
 	"DISK_FREE": "Avail Space",
-	"TEMP_THRESHOLD_WARNING": "CPU Temp is exceeded threshold"
+	"TEMP_THRESHOLD_WARNING": "CPU Temp has exceeded threshold"
 }
