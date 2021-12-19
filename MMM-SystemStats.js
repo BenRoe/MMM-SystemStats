@@ -70,7 +70,7 @@ Module.register('MMM-SystemStats', {
         }
       }
       this.stats.sysLoad = payload.sysLoad[0];
-      this.stats.freeMem = Number(payload.freeMem).toFixed() + '%';
+      this.stats.freeMem = Number(payload.freeMem.replace(',','.')).toFixed(2) + '%';
       upTime = parseInt(payload.upTime[0]);
       this.stats.upTime = moment.duration(upTime, "seconds").humanize();
       this.stats.freeSpace = payload.freeSpace;
