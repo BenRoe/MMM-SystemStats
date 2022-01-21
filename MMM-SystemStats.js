@@ -86,11 +86,11 @@ Module.register('MMM-SystemStats', {
     var sysData = {
       cpuTemp: {
         text: 'CPU_TEMP',
-        icon: 'fa-thermometer',
+        icon: 'fa-thermometer-half',
       },
       sysLoad: {
         text: 'SYS_LOAD',
-        icon: 'fa-tachometer',
+        icon: 'fa-tachometer-alt',
       },
       freeMem: {
         text: 'RAM_FREE',
@@ -98,11 +98,11 @@ Module.register('MMM-SystemStats', {
       },
       upTime: {
         text: 'UPTIME',
-        icon: 'fa-clock-o',
+        icon: 'fa-clock',
       },
       freeSpace: {
         text: 'DISK_FREE',
-        icon: 'fa-hdd-o',
+        icon: 'fa-hdd',
       },
     };
 
@@ -119,7 +119,7 @@ Module.register('MMM-SystemStats', {
 
       if (self.config.label.match(/^(icon|textAndIcon)$/)) {
         var c2 = document.createElement('td');
-        c2.innerHTML = `<i class="fa ${sysData[item].icon} fa-fw"></i>`;
+        c2.innerHTML = `<i class="fas ${sysData[item].icon} fa-fw"></i>`;
         row.appendChild(c2);
       }
 

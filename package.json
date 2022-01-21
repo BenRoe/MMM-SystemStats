@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/BenRoe/MMM-SystemStats#readme",
   "dependencies": {
-    "async": "latest"
+    "async": "latest",
+    "request": "^2.88.2"
   }
 }
