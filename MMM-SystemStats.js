@@ -60,6 +60,8 @@ Module.register('MMM-SystemStats', {
     //Log.log(payload);
     if (notification === 'STATS') {
       this.stats.cpuTemp = payload.cpuTemp;
+      // remove space/CR from data returned for cpu on the intel, seems inconsistent, two systems one has the CR the other doesn't
+      this.stats.cpuTemp = this.stats.cpuTemp.replace(/[\n\r]+/g, "");
       //console.log("this.config.useSyslog-" + this.config.useSyslog + ', this.stats.cpuTemp-'+parseInt(this.stats.cpuTemp)+', this.config.thresholdCPUTemp-'+this.config.thresholdCPUTemp);
       if (this.config.useSyslog) {
         var cpuTemp = Math.ceil(parseFloat(this.stats.cpuTemp));
