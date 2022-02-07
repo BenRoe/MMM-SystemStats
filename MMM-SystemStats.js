@@ -126,7 +126,7 @@ Module.register('MMM-SystemStats', {
       var c3 = document.createElement('td');
       c3.setAttribute('class', 'value');
       c3.style.textAlign = self.config.align;
-      c3.innerText = self.stats[item];
+      c3.innerHTML = self.stats[item];
       row.appendChild(c3);
 
       wrapper.appendChild(row);
